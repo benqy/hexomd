@@ -4,7 +4,7 @@
   var defaultConfig = {
     theme: 'ambiance',
     mode: 'gfm',
-    lineNumbers: true,
+    lineNumbers: false,
     extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"},
     //关闭自带的拖动显示
     dragDrop: false,

@@ -33,7 +33,7 @@
   hmd.extend({      
     storeDir: require('nw.gui').App.dataPath,
     msg:function(txt){
-      console.log(txt);
+      $('#msg').text(txt);
     }
   });
 

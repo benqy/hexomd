@@ -13,7 +13,7 @@
     "icon": "app/img/logo.png",
     "toolbar": true,
     "frame": false,
-    "width": 1200,
+    "width": 1000,
     "height": 700,
     "position": "center",
     "min_width": 1200,

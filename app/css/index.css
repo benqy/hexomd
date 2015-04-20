@@ -97,7 +97,7 @@ body {
 
 /***************************布局区域*********************************/
 .app {
-    height: 100%;
+    height: calc(100% - 40px);
     overflow: hidden;
     max-width: none;
     margin-top: 50px;
