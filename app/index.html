@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hexo Markdown</title>
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="lib/codemirror/lib/codemirror.css" rel="stylesheet" />
+  <link href="css/index.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" style="-webkit-app-region: drag;">
+    <div class="container">
+      <div class="navbar-header">
+        <img src="img/logo.png" width="32" height="32">
+        <a class="navbar-brand" href="javascript://">Hexo MD</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav" >
+          <li><a href="javascript:;" md-network>NETWORK</a></li>
+          <li class="disabled"><a href="javascript:;" class="disabled">SETTING</a></li>
+        </ul>
+        <div class="btn-group window-tool">
+          <a class="btn rectbtn" href="javascript://" title="点击检查更新" md-update><i class="glyphicon  mdfi_action_system_update_tv"></i></a>
+          <a class="btn rectbtn" href="javascript://" md-minisize><i class="glyphicon glyphicon-minus"></i></a>
+          <a class="btn rectbtn" href="javascript://" md-max-toggle><i class="glyphicon glyphicon-fullscreen"></i></a>
+          <a class="btn rectbtn" href="javascript://" md-close><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <article class="container app" ui-view ng-animate="'view'"></article>
+  <!--cm-->
+  <script src="lib/codemirror/lib/codemirror.js"></script>
+  <script src="lib/codemirror/addon/mode/overlay.js"></script>
+  <script src="lib/codemirror/addon/edit/continuelist.js"></script>
+  <script src="lib/codemirror/mode/markdown/markdown.js"></script>
+  <script src="lib/codemirror/mode/gfm/gfm.js"></script>
+  <!--end codemirror-->
+  <script src="lib/jquery-2.1.3.js"></script>
+  <script src="lib/angular.js"></script>
+  <script src="lib/angular-ui-router.js"></script>
+  <script src="modules/app.js"></script>
+  <script>
+    angular.bootstrap($('body'), ['hmd']);
+  </script>
+</body>
+</html>

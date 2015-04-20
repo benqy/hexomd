@@ -1,0 +1,147 @@
+﻿
+.content{
+    overflow:auto;
+    display:block !important;
+}
+.content-left{
+    width:480px;
+}
+.content-right{ 
+   width:calc(100% - 480px);
+}
+tr{
+}
+th{
+    min-width:108px;
+    cursor:pointer;
+}
+td{
+    -webkit-user-select:text;
+    color:#ccc;
+}
+td.url-name{
+    position: relative;
+}
+
+a.add-pro{
+    position: absolute;
+}
+a.url-name{
+    display: block;
+    word-wrap: break-word;
+    overflow: hidden;
+    position: relative;
+    top: 0px;
+    left: 26px;
+    width: 205px;
+}
+td a{
+    color:#bbb;
+}
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color:#222;
+}
+.form-group{
+    width:500px;
+}
+.form-inline{
+}
+.input-group-addon {
+    background-color:#3276b1;
+    border:1px solid #3276b1;
+}
+.btn, input{
+    border-radius:0 !important;
+}
+.content{
+    padding:14px;
+}
+.content-tool{
+    position:fixed;
+    z-index:100;
+}
+.content-list{
+    margin-top:40px;
+}
+.dialog{
+    width:calc(100% - 278px);
+    top:99px;
+    left:265px;
+    color:#bbb;
+    background:#1e1e1e;
+    height:calc(100% - 100px);
+    -webkit-user-select:text;
+}
+.nav-tabs-container{
+    border:1px solid #333;
+    border-top:none;
+    padding:10px;
+    overflow-y:auto;
+    overflow-x:visible;
+    height:calc(100% - 43px);
+    
+}
+.nav-tabs {
+    border-bottom: 1px solid #333;
+}
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+        border:1px solid #333;
+        border-bottom-color: transparent;
+        background:#1e1e1e;
+        border-radius:0;
+    }
+
+    .nav > li > a:hover, .nav > li > a:focus {
+        text-decoration: none;
+        border-color:#666;
+        background-color: #666;
+    }
+.nav-tabs > li > a {
+    color:#ccc;
+    margin-right: 2px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+a.close-btn:hover{
+    color:red;
+}
+a.close-btn {
+    display: block;
+    font-size: 16px;
+    color: #666;
+    position: absolute;
+    left: 282px;
+    top: 13px;
+    text-decoration: none;
+}
+p{
+    word-wrap: break-word;
+}
+strong{
+    color:#fff;
+}
+strong:after {
+    content:' : ';
+}
+h4{
+    color:#fff;
+    margin: 24px 0;
+}
+p.child{
+    padding-left:10px;
+}
+.name-container{
+    width: 251px;
+    position: absolute;
+    top: 104px;
+    overflow-y:auto;
+    height: calc(100% - 100px);
+}
+.namelist td{
+    cursor:pointer;
+
+}
+.td-active{
+    background:#000 !important;
+}

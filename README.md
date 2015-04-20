@@ -1,2 +1,2 @@
-# FunMD
-markdown编辑器
+# HexoMD
+为hexo博客量身定制的markdown编辑器
