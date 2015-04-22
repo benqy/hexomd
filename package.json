@@ -11,12 +11,12 @@
   "window": {
     "title": "HexoMD",
     "icon": "app/img/logo.png",
-    "toolbar": true,
+    "toolbar": false,
     "frame": false,
     "width": 1000,
     "height": 700,
     "position": "center",
-    "min_width": 1200,
-    "min_height": 700
+    "min_width": 600,
+    "min_height": 400
   }
 }

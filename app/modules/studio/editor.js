@@ -6,7 +6,6 @@
     mode: 'gfm',
     lineNumbers: false,
     extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"},
-    //关闭自带的拖动显示
     dragDrop: false,
     autofocus: true,
     lineWrapping: true,    
@@ -14,20 +13,18 @@
     styleActiveLine: true
   };
 
-  var execPath = require('path').dirname(process.execPath);
-
-
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
       options = $.extend({}, defaultConfig, options);
+      //编辑器样式文件动态加载,用于以后增加样式选择功能
       if(options.theme != 'default'){
         $('head').append('<link href="lib/codemirror/theme/'+options.theme+'.css" rel="stylesheet" />');
       }
-      if(!this.cm){
-      	this.cm = CodeMirror.fromTextArea(el, options);
-      }
+      this.cm = this.cm || CodeMirror.fromTextArea(el, options);
+      //指定要打开的文件,如果未指定,则保存时会弹出文件选择对话框
       filepath && this.setFile(filepath);
+      //编辑器内容修改时触发change事件
       this.cm.on('change', function (em, changeObj) {
         me.hasChange = true;
         me.fire('change', {
@@ -42,38 +39,31 @@
         }
       });
     },
+    //设置当前文件
     setFile:function(filepath){
       var txt = util.readFileSync(filepath);
       this.filepath = filepath;
       this.cm.setValue(txt);
     },
-    initMarked:function(){
-      var marked = require('marked');
-      marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false
-      });
-			this.marked = marked;
+    //弹出保存文件对话框
+    saveAs:function(){
+      hmd.msg('保存新文件');
+    },
+    //保存文件
+    save: function () {
+      var txt = this.cm.getValue();
+      if(this.filepath){
+        util.writeFileSync(this.filepath, txt);
+        this.hasChange = false;
+        var fileNameArr = this.filepath.split('\\');
+        hmd.msg('文件:' + fileNameArr[fileNameArr.length - 1] + '保存成功!');
+      	this.fire('save');
+      }
+      else{
+        this.saveAs();
+      }
     },
     events: {},
-    preview:function(){
-      var txt = this.cm.getValue();
-      
-    },
-    save: function () {
-       var txt = this.cm.getValue();
-       util.writeFileSync(hmd.editor.filepath, txt);
-       this.hasChange = false;
-       var fileNameArr = this.filepath.split('\\');
-       hmd.msg('文件:' + fileNameArr[fileNameArr.length - 1] + '保存成功!');
-       this.fire('save');
-    },
     fire: function (eventName, obj) {
       var me = this;
       this.events[eventName] && this.events[eventName].forEach(function (fn) {

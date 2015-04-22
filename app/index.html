@@ -8,29 +8,34 @@
   <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" style="-webkit-app-region: drag;">
+  <!--导航栏-->
+  <nav class="navbar navbar-inverse navbar-fixed-top" style="">
     <div class="container">
       <div class="navbar-header">
         <img src="img/logo.png" width="32" height="32">
         <a class="navbar-brand" href="javascript://">Hexo MD</a>
       </div>
       <div class="collapse navbar-collapse">
+        <!--子窗口菜单-->
         <ul class="nav navbar-nav" >
-          <li><a href="javascript:;" md-network>NETWORK</a></li>
+          <li><a href="javascript:;">NETWORK</a></li>
           <li class="disabled"><a href="javascript:;" class="disabled">SETTING</a></li>
         </ul>
+        <!--导航栏功能按钮-->
         <div class="btn-group window-tool">
-          <a class="btn rectbtn" href="javascript://" title="点击检查更新" md-update><i class="glyphicon  mdfi_action_system_update_tv"></i></a>
-          <a class="btn rectbtn" href="javascript://" md-minisize><i class="glyphicon glyphicon-minus"></i></a>
-          <a class="btn rectbtn" href="javascript://" md-max-toggle><i class="glyphicon glyphicon-fullscreen"></i></a>
-          <a class="btn rectbtn" href="javascript://" md-close><i class="glyphicon glyphicon-remove"></i></a>
+          <a class="btn rectbtn" href="javascript://" title="点击检查更新" hmd-update><i class="glyphicon  mdfi_action_system_update_tv"></i></a>
+          <a class="btn rectbtn" href="javascript://" hmd-minisize><i class="glyphicon glyphicon-minus"></i></a>
+          <a class="btn rectbtn" href="javascript://" hmd-max-toggle><i class="glyphicon glyphicon-fullscreen"></i></a>
+          <a class="btn rectbtn" href="javascript://" hmd-close><i class="glyphicon glyphicon-remove"></i></a>
         </div>
       </div>
     </div>
-  </nav>
+  </nav>	
+  <!--模块视图区域-->
   <article class="container app" ui-view ng-animate="'view'"></article>
-  <footer id="msg"></footer>
-  <!--cm-->
+  <!--工具栏-->
+  <footer class="tool"></footer>
+  <!--codemirror-->
   <script src="lib/codemirror/lib/codemirror.js"></script>
   <script src="lib/codemirror/addon/mode/overlay.js"></script>
   <script src="lib/codemirror/addon/edit/continuelist.js"></script>
@@ -40,8 +45,11 @@
   <script src="lib/jquery-2.1.3.js"></script>
   <script src="lib/angular.js"></script>
   <script src="lib/angular-ui-router.js"></script>
+  <!--程序入口函数-->
   <script src="modules/app.js"></script>
+  <script src="modules/directives.js"></script>
   <script>
+    //初始化angular,hmd为自定义的根模块名
     angular.bootstrap($('body'), ['hmd']);
   </script>
 </body>

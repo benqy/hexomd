@@ -50,6 +50,9 @@ body {
 }
 
 /************************导航**********************************/
+.navbar{
+  -webkit-app-region: drag;
+}
 .navbar .navbar-header img {
     float: left;
     margin-top: 8px;
@@ -121,7 +124,9 @@ body {
         width: calc(100% - 300px);
     }
 
-
+.tool{
+  height:40px;
+}
 /************************view动画************************/
 .well[ui-view] {
     height: 100%;
@@ -199,15 +204,11 @@ body {
             opacity: 1;
         }
 /*****************code editer*********************/
-.logContentWrap {
+.studio-wrap {
     height: calc(100% - 51px);
     overflow: auto;
     border-radius: 0;
     display:none;
-}
-.logContent {
-    display:none;
-    background: #f5f5f5;
 }
 .CodeMirror {
     height:100%;
@@ -228,42 +229,3 @@ div.errors{
         background-position: bottom;
         background-repeat: repeat-x;
       }
-
-.editor-tool .mdfi-icon{
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-}
-.editor-tool .mdfi-icon:hover{
-    background:#1C97EA;
-}
-.editor-tool {
-    margin-bottom: 0;
-    background:#2D2D30;
-    border-bottom: 2px solid #357ebd;
-    height:36px;
-}
-.editor-tool a{
-    cursor:default;
-    background:#357ebd ;
-}
-.editor-tool .editor-tab-blur{
-    background:#2D2D30;
-    border:1px solid #2D2D30;
-}
-.editor-tool .editor-tab-blur:hover{
-    background-color: #3276b1;
-    border-color: #285e8e;
-}
-
-.editor-tool a.editor-tab-blur i{
-    visibility:hidden;
-}
-.editor-tool a.editor-tab-blur:hover i{
-    visibility:visible;
-}
-.editor-tool a i{
-    cursor:pointer;
-    margin-left: 5px;
-
-}

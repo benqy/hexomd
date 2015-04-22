@@ -2,6 +2,6 @@
   var studio = hmd.studio;
   studio
     .controller('studio', function ($scope, $state, $stateParams) {
-      console.log('stuido c');
+      console.log('stuido controller');
     });
 })();

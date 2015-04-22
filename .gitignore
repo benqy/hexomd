@@ -216,3 +216,6 @@ pip-log.txt
 .mr.developer.cfg
 app/node_modules
 zproject.json
+nw.exe
+nw.pak
+icudt.dll
