@@ -100,7 +100,7 @@ body {
 
 /***************************布局区域*********************************/
 .app {
-    height: calc(100% - 40px);
+    height: 100%;
     overflow: hidden;
     max-width: none;
     margin-top: 50px;
@@ -108,7 +108,7 @@ body {
 }
 .app .content {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px);
     display: -webkit-box;
     -webkit-box-orient: horizontal;
 }
@@ -124,9 +124,7 @@ body {
         width: calc(100% - 300px);
     }
 
-.tool{
-  height:40px;
-}
+
 /************************view动画************************/
 .well[ui-view] {
     height: 100%;
@@ -203,7 +201,7 @@ body {
             height: 30px;
             opacity: 1;
         }
-/*****************code editer*********************/
+/*****************studio*********************/
 .studio-wrap {
     height: calc(100% - 51px);
     overflow: auto;
@@ -229,3 +227,42 @@ div.errors{
         background-position: bottom;
         background-repeat: repeat-x;
       }
+
+/***工具栏***/
+.tool{
+  height:40px;
+  width:100%;
+  
+  background-color: #428bca;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+}
+.tool section{
+  line-height:40px;
+}
+.tool .msg{
+  width:300px;
+  padding-left:10px;
+}
+
+.msg.warning{
+    background-color: #f0ad4e !important;
+    border-color: #eea236 !important;
+    color: #fff !important;
+}
+.msg.error{
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+}
+
+.studio-btn-group{
+  margin-bottom: 0;
+  border-color: #428bca;
+  text-align: center;
+  height:100%;
+}
+.studio-btn-group a {
+  width: 45px;
+  height:100%;
+  line-height:29px;
+}

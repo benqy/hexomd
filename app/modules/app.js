@@ -1,5 +1,6 @@
 (function (global) {
   var gui = require('nw.gui');
+  
 
   var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.studio']),
       fs = require('fs'),
@@ -27,10 +28,32 @@
 
   
   
-  hmd.msg = function(txt){
-    $('.tool').text(txt);
+  //消息等级
+  var msgTimer = null;
+  var MSG_LEVEL = {
+      info: 'info',
+      warning: 'warning',
+      debug: 'debug',
+      error:'error'
   };
-
+  //状态栏消息
+  hmd.msg = function (txt, lv) {
+    lv = lv || MSG_LEVEL.info;
+    $('#msg')
+    .removeClass(MSG_LEVEL.info)
+    .removeClass(MSG_LEVEL.warning)
+    .removeClass(MSG_LEVEL.debug)
+    .removeClass(MSG_LEVEL.error)
+    .addClass(lv).text(txt);
+    clearTimeout(msgTimer);
+    msgTimer = setTimeout(function () {
+      $('#msg')
+      .removeClass(MSG_LEVEL.info)
+      .removeClass(MSG_LEVEL.warning)
+      .removeClass(MSG_LEVEL.debug)
+      .removeClass(MSG_LEVEL.error);
+    }, 5000);
+  };
 
   //引入模块
  	hmd.regModule('studio');

@@ -1,5 +1,6 @@
 (function () {
-  var util = require('./helpers/util');
+  var util = require('./helpers/util'),
+      fs = require('fs');
 
   var defaultConfig = {
     theme: 'ambiance',
@@ -23,10 +24,9 @@
       }
       this.cm = this.cm || CodeMirror.fromTextArea(el, options);
       //指定要打开的文件,如果未指定,则保存时会弹出文件选择对话框
-      filepath && this.setFile(filepath);
+      this.setFile(filepath);
       //编辑器内容修改时触发change事件
       this.cm.on('change', function (em, changeObj) {
-        me.hasChange = true;
         me.fire('change', {
           em: em,
           changeObj: changeObj
@@ -41,23 +41,44 @@
     },
     //设置当前文件
     setFile:function(filepath){
-      var txt = util.readFileSync(filepath);
-      this.filepath = filepath;
-      this.cm.setValue(txt);
+      if(filepath && fs.existsSync(filepath)){
+        var txt = util.readFileSync(filepath);
+        this.filepath = filepath;
+        this.cm.setValue(txt);
+      }
+      else{
+        this.filepath = null;
+        this.cm.setValue('');
+      }
+    },
+    openFile:function(){
+      var me = this;
+      this.openFileInput = $('<input style="display:none;" type="file"  accept=".md"/>');
+      this.openFileInput[0].addEventListener("change", function (evt) {
+        if(this.value){
+          me.setFile(this.value);
+        }
+      }, false);
+      this.openFileInput.trigger('click');
     },
     //弹出保存文件对话框
     saveAs:function(){
-      hmd.msg('保存新文件');
+      var me = this;
+      this.saveAsInput = $('<input style="display:none;" type="file"  accept=".md" nwsaveas/>');
+      this.saveAsInput[0].addEventListener("change", function (evt) {
+        if(this.value){
+          me.filepath = this.value;
+          me.save();
+        }
+      }, false);
+      this.saveAsInput.trigger('click');
     },
     //保存文件
     save: function () {
       var txt = this.cm.getValue();
       if(this.filepath){
         util.writeFileSync(this.filepath, txt);
-        this.hasChange = false;
-        var fileNameArr = this.filepath.split('\\');
-        hmd.msg('文件:' + fileNameArr[fileNameArr.length - 1] + '保存成功!');
-      	this.fire('save');
+      	this.fire('saved',this.filepath);
       }
       else{
         this.saveAs();
