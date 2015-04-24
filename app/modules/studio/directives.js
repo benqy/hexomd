@@ -60,6 +60,15 @@
     };
   });
   
+  //打开目录
+  studio.directive('studioOpendir', function () {    
+    return function ($scope, elem) {
+      $(elem[0]).on('click',function(){
+        hmd.editor.filepath && require('nw.gui').Shell.showItemInFolder(hmd.editor.filepath);
+      });
+    };
+  });
+  
   studio.directive('studioSave',function(){
     return function($scope,elem){
       var editor = hmd.editor;

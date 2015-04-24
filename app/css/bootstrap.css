@@ -2859,7 +2859,9 @@ input[type="button"].btn-block {
 .glyphicon-folder-open:before {
   content: "\e118";
 }
-
+.glyphicon-open-file:before {
+  content: "\e203";
+}
 .glyphicon-resize-vertical:before {
   content: "\e119";
 }
