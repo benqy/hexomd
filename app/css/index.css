@@ -266,3 +266,7 @@ div.errors{
   height:100%;
   line-height:29px;
 }
+/**system**/
+.system-form{
+  margin:15px;
+}

@@ -3,7 +3,17 @@
       fs = require('fs');
   studio.directive('hmdEditor', function () {
     return function ($scope, elem) {
-      hmd.editor.init({el:elem[0]});
+      var systemData = hmd.system.get();
+      hmd.editor.init({
+        el:elem[0],
+        theme:systemData.theme
+      },systemData.lastFile);
+      //保存最后一次打开的文件
+      hmd.editor.on('setFiled',function(filepath){
+        hmd.system.setLastFile(filepath);
+      });
+      
+      //显示保存信息
       hmd.editor.on('saved',function(filepath){
         var fileNameArr = filepath.split('\\');
         hmd.msg('文件:' + fileNameArr[fileNameArr.length - 1] + '保存成功!');
@@ -23,7 +33,7 @@
       //双击md文件打开
       var gui = require('nw.gui'),
           filepath = gui.App.argv[0];
-			~filepath.indexOf('.md') && hmd.editor.setFile(filepath);
+			filepath && ~filepath.indexOf('.md') && hmd.editor.setFile(filepath);
       //如果程序已经打开,则会触发open事件
       gui.App.on('open', function(cmdline) {
         window.focus();

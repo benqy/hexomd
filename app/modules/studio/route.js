@@ -6,7 +6,10 @@
       .state('studio', {
         url: "/studio",
         templateUrl: "modules/studio/views/studio.html",
-        controller: 'studio'
+        controller: 'studio',
+        onEnter: function () {
+          hmd.changeStatus('studio');
+        }
       });
   });
 })();

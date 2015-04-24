@@ -22,7 +22,7 @@
       if(options.theme != 'default'){
         $('head').append('<link href="lib/codemirror/theme/'+options.theme+'.css" rel="stylesheet" />');
       }
-      this.cm = this.cm || CodeMirror.fromTextArea(el, options);
+      this.cm = CodeMirror.fromTextArea(el, options);
       //指定要打开的文件,如果未指定,则保存时会弹出文件选择对话框
       this.setFile(filepath);
       //编辑器内容修改时触发change事件
@@ -45,10 +45,12 @@
         var txt = util.readFileSync(filepath);
         this.filepath = filepath;
         this.cm.setValue(txt);
+        this.fire('setFiled',this.filepath);
       }
       else{
         this.filepath = null;
         this.cm.setValue('');
+        this.fire('setFiled');
       }
     },
     openFile:function(){

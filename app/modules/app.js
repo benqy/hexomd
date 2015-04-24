@@ -2,7 +2,7 @@
   var gui = require('nw.gui');
   
 
-  var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.studio']),
+  var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.studio','hmd.system']),
       fs = require('fs'),
       //模块根目录
       baseModuleDir = './app/modules/';
@@ -55,9 +55,16 @@
     }, 5000);
   };
 
+  //TODO:更优雅的导航栏切换逻辑
+  hmd.changeStatus =  function (state) {
+    var $navList = $('#navlist');
+    $navList.find('li').removeClass('active');
+    $navList.find('.' + state).addClass('active');
+  };
+  
   //引入模块
  	hmd.regModule('studio');
- 
+  hmd.regModule('system');
 
   window.ondragover = function (e) { e.preventDefault(); return false; };
   window.ondrop = function (e) { e.preventDefault(); return false; };

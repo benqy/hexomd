@@ -1,0 +1,10 @@
+<div class="content studio-wrap">
+  <form class="system-form" name="systemForm">
+    <div class="form-group">
+      <label>编辑器样式</label>
+      <select name="theme" ng-model="systemSetting.theme"  ng-options="k as v for (k, v) in themes">
+      </select>
+    </div>    
+    <button type="submit" class="btn btn-default" ng-click="save(systemSetting)">保存</button>
+  </form>
+</div>
