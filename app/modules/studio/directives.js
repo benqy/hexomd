@@ -69,6 +69,36 @@
     };
   });
   
+  //预览
+  studio.directive('studioPreview',function(){
+    return function($scope,elem){
+      hmd.editor.on('saved',function(filepath){
+        hmd.previewWin && hmd.previewWin.emit('changed', filepath);
+      });
+      $(elem[0]).on('click',function(){
+        var previewWinUrl = ('file:///' + require('path').dirname(process.execPath) + '/app/preview.html').replace(/\\/g,'/');
+        if (!hmd.previewWin) {
+          hmd.previewWin = require('nw.gui').Window.open(previewWinUrl, {
+            position: 'center',
+            "toolbar": true,
+            "frame": true,
+            "width": 800,
+            "height": 600,
+            "min_width": 600,
+            "min_height": 400,
+            "icon": "app/img/logo.png"
+          });
+          //hmd.previewWin.mainWin = window;
+          hmd.previewWin.on('close', function () {
+            hmd.previewWin = null;
+            this.close(true);
+          });
+        }
+      });
+    };
+  });
+  
+  //保存
   studio.directive('studioSave',function(){
     return function($scope,elem){
       var editor = hmd.editor;
