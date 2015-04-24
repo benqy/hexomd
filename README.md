@@ -10,3 +10,5 @@ GFM风格的markdown编辑器
 * 自动上传图片.
 * 表情功能.
 * 集成[hexo](http://hexo.io/)命令.
+
+[当前开发进度](http://benq.im/2015/04/21/hexomd-01/)
