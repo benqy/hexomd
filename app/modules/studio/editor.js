@@ -22,6 +22,7 @@
       if(options.theme != 'default'){
         $('head').append('<link href="lib/codemirror/theme/'+options.theme+'.css" rel="stylesheet" />');
       }
+      this.initMarked();
       this.cm = CodeMirror.fromTextArea(el, options);
       //指定要打开的文件,如果未指定,则保存时会弹出文件选择对话框
       this.setFile(filepath);
@@ -32,12 +33,33 @@
           changeObj: changeObj
         });
       });
+      //滚动事件
+      this.cm.on('scroll',function(cm){
+        me.fire('scroll',cm.getScrollInfo());
+      });
       //绑定按键
       this.cm.addKeyMap({
         "Ctrl-S": function () {
           me.save();
         }
       });
+    },
+    initMarked:function(){
+      this.marked = require('../app/node_modules/marked');
+      this.marked.setOptions({
+        renderer: new this.marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+      });
+    },
+    //解析markdown
+    parse:function(){
+      return this.marked(this.cm.getValue());
     },
     //设置当前文件
     setFile:function(filepath){

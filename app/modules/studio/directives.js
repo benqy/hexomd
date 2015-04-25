@@ -72,11 +72,31 @@
   //预览
   studio.directive('studioPreview',function(){
     return function($scope,elem){
-      hmd.editor.on('saved',function(filepath){
-        hmd.previewWin && hmd.previewWin.emit('changed', filepath);
+      
+      //修改文本时更新预览,change事件触发非常频繁,所以这里使用setTimeout防止无意义的频繁解析.
+      var changeTimer;
+      hmd.editor.on('change',function(){
+        clearTimeout(changeTimer);
+        changeTimer = setTimeout(function(){
+        	hmd.previewWin && hmd.previewWin.emit('change', hmd.editor.parse());
+        },200);
       });
+      //打开文件时更新预览
+      hmd.editor.on('setFiled',function(filepath){
+        hmd.previewWin && hmd.previewWin.emit('change', hmd.editor.parse());
+      });
+      
+      //编辑器滚动
+      var scrollTimer;
+      hmd.editor.on('scroll',function(scrollInfo){
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(function(){
+        	hmd.previewWin && hmd.previewWin.emit('editorScroll',scrollInfo);
+        },200);
+      });
+      
       $(elem[0]).on('click',function(){
-        var previewWinUrl = ('file:///' + require('path').dirname(process.execPath) + '/app/preview.html').replace(/\\/g,'/');
+        var previewWinUrl = ('file:///' + require('path').dirname(process.execPath) + '/app/modules/studio/views/preview.html').replace(/\\/g,'/');
         if (!hmd.previewWin) {
           hmd.previewWin = require('nw.gui').Window.open(previewWinUrl, {
             position: 'center',
@@ -88,7 +108,9 @@
             "min_height": 400,
             "icon": "app/img/logo.png"
           });
-          //hmd.previewWin.mainWin = window;
+          hmd.previewWin.on('loaded',function(){
+            hmd.previewWin && hmd.previewWin.emit('change', hmd.editor.parse());
+          });
           hmd.previewWin.on('close', function () {
             hmd.previewWin = null;
             this.close(true);
