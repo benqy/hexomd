@@ -54,7 +54,10 @@
         pedantic: false,
         sanitize: true,
         smartLists: true,
-        smartypants: false
+        smartypants: false,
+        highlight: function (code) {
+          return require('../app/node_modules/highlight.js').highlightAuto(code).value;
+        }
       });
     },
     //解析markdown

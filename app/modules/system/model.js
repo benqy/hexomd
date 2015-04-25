@@ -16,8 +16,12 @@
   var defaultSystemData = {
     //最后一次打开的文件
     lastFile: null,
-    //当前样式
-    theme:'ambiance'
+    //编辑器样式
+    theme:'ambiance',
+    //预览窗口样式
+    preViewTheme:'github',
+    //预览代码块样式
+    preViewHighLightTheme:'default'
   };
   
   //读取设置

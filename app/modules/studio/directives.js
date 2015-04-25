@@ -100,7 +100,7 @@
         if (!hmd.previewWin) {
           hmd.previewWin = require('nw.gui').Window.open(previewWinUrl, {
             position: 'center',
-            "toolbar": true,
+            "toolbar": false,
             "frame": true,
             "width": 800,
             "height": 600,
@@ -109,6 +109,7 @@
             "icon": "app/img/logo.png"
           });
           hmd.previewWin.on('loaded',function(){
+          	hmd.previewWin.emit('setTheme',hmd.system.get());
             hmd.previewWin && hmd.previewWin.emit('change', hmd.editor.parse());
           });
           hmd.previewWin.on('close', function () {

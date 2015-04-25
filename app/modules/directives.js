@@ -2,6 +2,11 @@
   var gui = require('nw.gui'), win = gui.Window.get(), 
       //表示窗口当前是否是最大化的.
       winMaximize = false;
+  win.on('close', function () {
+    var me = this;
+    hmd.previewWin && hmd.previewWin.close();
+    me.close(true);
+  });
   angular.module('hmd.directives', [])
   //最小化窗口
   .directive('hmdMinisize', [function () {

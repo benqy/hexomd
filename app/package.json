@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "highlight.js": "^8.5.0",
     "marked": "^0.3.3"
   },
   "devDependencies": {},

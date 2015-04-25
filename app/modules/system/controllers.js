@@ -3,16 +3,21 @@
 	
   var system = hmd.system,
   	fs = require('fs');
-  system.controller('system', function ($scope) {
-    //读取theme目录,生成样式列表
-    var files = fs.readdirSync('./app/lib/codemirror/theme'),themes={};
+  //读取theme目录,生成样式列表
+  var readCssList = function(path){
+    var files = fs.readdirSync(path),themes={};
     files.forEach(function (file) {
       if(~file.indexOf('.css')){
       	file = file.replace('.css','');
         themes[file] = file;
       } 
     });
-    $scope.themes = themes;
+    return themes;
+  };
+  system.controller('system', function ($scope) {
+    $scope.themes = readCssList('./app/lib/codemirror/theme');
+    $scope.preViewThemes = readCssList('./app/css/previewtheme');
+    $scope.preViewHighLightThemes = readCssList('./app/node_modules/highlight.js/styles');
     $scope.systemSetting = system.get();
     $scope.save = function (systemSetting) {
       system.save(systemSetting);
