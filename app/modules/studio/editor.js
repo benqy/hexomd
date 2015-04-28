@@ -14,8 +14,6 @@
     styleActiveLine: true
   };
 	
-//  var qiniukey = 'rrGYBTgg782dxQDxccsDpc9Q33FB26iA33zj9D-x:F7vmerL_qBVmMjO0tJ8mfi_ipKM=:eyJzY29wZSI6Im9uZWFib3ZlYWxsIiwiZGVhZGxpbmUiOjE0NTc2NzQyNDF9';
-  //var qiniukey = 'rrGYBTgg782dxQDxccsDpc9Q33FB26iA33zj9D-x:L--Fb83qK-AOnKZgs918p82eO0c=:eyJzY29wZSI6InRlc3QiLCJkZWFkbGluZSI6MTQ3MzM5MjE4NH0=';
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
@@ -45,8 +43,7 @@
         "Ctrl-S": function () {
           me.save();
         }
-      });
-      
+      });      
       //图片上传
     },
     initMarked:function(){
@@ -55,7 +52,7 @@
         renderer: new this.marked.Renderer(),
         gfm: true,
         tables: true,
-        breaks: false,
+        breaks: true,
         pedantic: false,
         sanitize: true,
         smartLists: true,
