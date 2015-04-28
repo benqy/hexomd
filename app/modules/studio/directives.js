@@ -92,7 +92,7 @@
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(function(){
         	hmd.previewWin && hmd.previewWin.emit('editorScroll',scrollInfo);
-        },200);
+        },150);
       });
       
       $(elem[0]).on('click',function(){

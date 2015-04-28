@@ -14,6 +14,7 @@
     styleActiveLine: true
   };
 
+  var qiniukey = 'rrGYBTgg782dxQDxccsDpc9Q33FB26iA33zj9D-x:F7vmerL_qBVmMjO0tJ8mfi_ipKM=:eyJzY29wZSI6Im9uZWFib3ZlYWxsIiwiZGVhZGxpbmUiOjE0NTc2NzQyNDF9';
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
@@ -43,6 +44,8 @@
           me.save();
         }
       });
+      //图片上传
+      $('.studio-wrap')[0].onpaste = this.uploadImage.bind(this);
     },
     initMarked:function(){
       this.marked = require('../app/node_modules/marked');
@@ -77,6 +80,43 @@
         this.cm.setValue('');
         this.fire('setFiled');
       }
+    },
+    guid:function () {
+      return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    },
+    uploadImage:function(ev){
+      var clipboardData, items, item;
+      if (ev && (clipboardData = ev.clipboardData) && (items = clipboardData.items) &&
+          (item = items[0]) && item.kind == 'file' && item.type.match(/^image\//i)) {
+        var blob = item.getAsFile();
+        var fileName = this.guid() + '.' +  blob.type.split('/')[1];
+        this._qiniuUpload(blob, qiniukey, fileName, function (blkRet) {
+          var img = '![](http://oneaboveall.qiniudn.com/' + blkRet.key + ')';
+          this.cm.doc.replaceSelection(img);
+        }.bind(this));
+        return false;
+      }
+    },
+    _qiniuUpload:function (f, token, key,fn) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://up.qiniu.com', true);
+      var formData, startDate;
+      formData = new FormData();
+      if (key !== null && key !== undefined) formData.append('key', key);
+      formData.append('token', token);
+      formData.append('file', f);
+      var taking;
+
+      xhr.onreadystatechange = function (response) {
+        if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText) {
+          var blkRet = JSON.parse(xhr.responseText);
+          fn(blkRet);
+        } else if (xhr.status != 200 && xhr.responseText) {
+          console.log('error');
+        }
+      };
+      startDate = new Date().getTime();
+      xhr.send(formData);
     },
     openFile:function(){
       var me = this;

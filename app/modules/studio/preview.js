@@ -5,6 +5,7 @@ win.on('change', function (mdHtml) {
 
 win.on('editorScroll',function(scrollInfo){
   var scrollTop = $(document.body).height()*scrollInfo.top/scrollInfo.height;
+  //console.log(scrollInfo.top/scrollInfo.height,$(document.body).height())
   $(document.body).scrollTop(scrollTop);
 });
 
