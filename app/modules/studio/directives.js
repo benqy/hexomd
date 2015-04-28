@@ -20,7 +20,7 @@
       });
       //监听拖动事件
       document.ondrop = function (e) {
-        var filepath, $target = $(e.target), dir, system;
+        var filepath;
         e.preventDefault();
         if (!e.dataTransfer.files.length) return;
         //取到文件路径
