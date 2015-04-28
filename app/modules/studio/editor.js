@@ -14,7 +14,8 @@
     styleActiveLine: true
   };
 
-  var qiniukey = 'rrGYBTgg782dxQDxccsDpc9Q33FB26iA33zj9D-x:F7vmerL_qBVmMjO0tJ8mfi_ipKM=:eyJzY29wZSI6Im9uZWFib3ZlYWxsIiwiZGVhZGxpbmUiOjE0NTc2NzQyNDF9';
+//  var qiniukey = 'rrGYBTgg782dxQDxccsDpc9Q33FB26iA33zj9D-x:F7vmerL_qBVmMjO0tJ8mfi_ipKM=:eyJzY29wZSI6Im9uZWFib3ZlYWxsIiwiZGVhZGxpbmUiOjE0NTc2NzQyNDF9';
+  var qiniukey = 'rrGYBTgg782dxQDxccsDpc9Q33FB26iA33zj9D-x:L--Fb83qK-AOnKZgs918p82eO0c=:eyJzY29wZSI6InRlc3QiLCJkZWFkbGluZSI6MTQ3MzM5MjE4NH0=';
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
@@ -91,7 +92,7 @@
         var blob = item.getAsFile();
         var fileName = this.guid() + '.' +  blob.type.split('/')[1];
         this._qiniuUpload(blob, qiniukey, fileName, function (blkRet) {
-          var img = '![](http://oneaboveall.qiniudn.com/' + blkRet.key + ')';
+          var img = '![](http://7xit3a.com1.z0.glb.clouddn.com/' + blkRet.key + ')';
           this.cm.doc.replaceSelection(img);
         }.bind(this));
         return false;
