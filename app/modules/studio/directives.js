@@ -6,7 +6,9 @@
       var systemData = hmd.system.get();
       hmd.editor.init({
         el:elem[0],
-        theme:systemData.theme
+        theme:systemData.theme,
+        qiniuToken:systemData.qiniutoken,
+        bucketHost:systemData.bucketHost
       },systemData.lastFile);
       //保存最后一次打开的文件
       hmd.editor.on('setFiled',function(filepath){
@@ -17,6 +19,9 @@
       hmd.editor.on('saved',function(filepath){
         var fileNameArr = filepath.split('\\');
         hmd.msg('文件:' + fileNameArr[fileNameArr.length - 1] + '保存成功!');
+      });
+      hmd.editor.on('error',function(err){
+        hmd.msg(err.msg,hmd.MSG_LEVEL.error);
       });
       //监听拖动事件
       document.ondrop = function (e) {

@@ -21,7 +21,17 @@
     //预览窗口样式
     preViewTheme:'github',
     //预览代码块样式
-    preViewHighLightTheme:'default'
+    preViewHighLightTheme:'default',
+    
+    /*七牛空间设置*/
+    accessKey:'rrGYBTgg782dxQDxccsDpc9Q33FB26iA33zj9D-x',
+    secretKey:'bAloaZ6TMAKyTz2Per3kIT68X8npkmhVAEH_viXf',
+    //空间名称
+    bucketName:'test',
+    //空间访问地址
+    bucketHost:'7xit3a.com1.z0.glb.clouddn.com',
+    //过期时间,从设置之后多少小时过期.
+    deadline:1000
   };
   
   //读取设置

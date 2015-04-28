@@ -30,7 +30,7 @@
   
   //消息等级
   var msgTimer = null;
-  var MSG_LEVEL = {
+  var MSG_LEVEL = hmd.MSG_LEVEL = {
       info: 'info',
       warning: 'warning',
       debug: 'debug',

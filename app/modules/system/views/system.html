@@ -2,18 +2,39 @@
   <form class="system-form" name="systemForm">
     <div class="form-group">
       <label>编辑器样式</label>
-      <select name="theme" ng-model="systemSetting.theme"  ng-options="k as v for (k, v) in themes">
+      <select class="form-control" name="theme" ng-model="systemSetting.theme"  ng-options="k as v for (k, v) in themes">
       </select>
     </div>
     <div class="form-group">
       <label>预览样式</label>
-      <select name="preViewTheme" ng-model="systemSetting.preViewTheme"  ng-options="k as v for (k, v) in preViewThemes">
+      <select class="form-control" name="preViewTheme" ng-model="systemSetting.preViewTheme"  ng-options="k as v for (k, v) in preViewThemes">
       </select>
     </div>
     <div class="form-group">
       <label>代码预览样式</label>
-      <select name="preViewHighLightTheme" ng-model="systemSetting.preViewHighLightTheme"  ng-options="k as v for (k, v) in preViewHighLightThemes">
+      <select class="form-control" name="preViewHighLightTheme" ng-model="systemSetting.preViewHighLightTheme"  ng-options="k as v for (k, v) in preViewHighLightThemes">
       </select>
+    </div>
+    <h3>七牛空间设置</h3>
+    <div class="form-group">
+      <label>AccessKey</label>
+      <input class="form-control" name="accessKey" ng-model="systemSetting.accessKey"/>
+    </div>
+    <div class="form-group">
+      <label>SecretKey</label>
+      <input class="form-control" name="secretKey" ng-model="systemSetting.secretKey"  type="text"/>
+    </div>
+    <div class="form-group">
+      <label>空间</label>
+      <input class="form-control" name="bucketName" ng-model="systemSetting.bucketName" type="text"/>
+    </div>
+    <div class="form-group">
+      <label>空间域名</label>
+      <input class="form-control" name="bucketHost" ng-model="systemSetting.bucketHost" type="text"/>
+    </div>
+    <div class="form-group">
+      <label>过期时间</label>
+      <input name="deadline" class="form-control" ng-model="systemSetting.deadline" type="number"/>
     </div>
     <button type="submit" class="btn btn-default" ng-click="save(systemSetting)">保存</button>
   </form>

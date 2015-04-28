@@ -271,3 +271,7 @@ div.errors{
 .system-form{
   margin:15px;
 }
+.system-form input{
+	width:400px;
+}
+}
