@@ -265,11 +265,24 @@ div.errors{
   text-align: center;
   height:100%;
 }
-.studio-btn-group a {
-  width: 45px;
+.studio-btn-group a,.studio-btn-group button{
+  min-width: 45px;
   height:100%;
   line-height:29px;
 }
+.studio-btn-group ul.dropdown-menu{
+	top:auto;
+  bottom:45px;
+  max-height:400px;
+  overflow:auto;
+}
+
+.studio-btn-group ul.dropdown-menu a.current{
+    color: #ffffff;
+  text-decoration: none;
+  background-color: #428bca;
+}
+
 /**system**/
 .system-form{
   margin:15px;

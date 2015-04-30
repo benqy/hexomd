@@ -46,5 +46,13 @@
         require('nw.gui').Window.get().close();
       });
     };
+  }])
+  .directive('hmdDropdownlist',[function(){
+    return function (scope, elem) {
+      var $el = $(elem[0]);
+      $el.on('click','button', function () {
+        $el.find('ul').toggle();
+      });
+    };
   }]);
 })();

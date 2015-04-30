@@ -17,14 +17,11 @@
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
-      options = $.extend({}, defaultConfig, options);
-      //编辑器样式文件动态加载,用于以后增加样式选择功能
-      if(options.theme != 'default'){
-        $('head').append('<link href="lib/codemirror/theme/'+options.theme+'.css" rel="stylesheet" />');
-      }
+      options = $.extend({}, defaultConfig, options);      
       this.initMarked();
       this.initQiniu(options);
       this.cm = CodeMirror.fromTextArea(el, options);
+      this.setTheme(options.theme);
       //指定要打开的文件,如果未指定,则保存时会弹出文件选择对话框
       this.setFile(filepath);
       //编辑器内容修改时触发change事件
@@ -45,6 +42,14 @@
         }
       });      
       //图片上传
+    },
+    setTheme:function(theme){
+      //if(theme != 'default'){
+        $('#editorThemeStyleSheet').remove();
+        var styleSheet = $('<link id="editorThemeStyleSheet" href="lib/codemirror/theme/'+theme+'.css" rel="stylesheet" />');
+        $('head').append(styleSheet);
+      	this.cm.setOption('theme',theme);
+     // }
     },
     initMarked:function(){
       this.marked = require('../app/node_modules/marked');

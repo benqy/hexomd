@@ -146,4 +146,43 @@
       });
     };
 	});
+  
+  studio.directive('studioTheme',function(){
+    return function($scope,elem){      
+      $(elem[0]).on('click','a',function(){
+        $('.themeBtn').removeClass('current');
+        $(this).addClass('current');
+        var systemData = hmd.system.get();
+        systemData.theme = $(this).text();
+        hmd.system.save(systemData);
+        hmd.editor.setTheme(systemData.theme);
+      });
+    };
+	});
+  
+  studio.directive('studioPreviewtheme',function(){
+    return function($scope,elem){  
+      $(elem[0]).on('click','a',function(){
+        $('.previewThemeBtn').removeClass('current');
+        $(this).addClass('current');
+        var ssData = hmd.system.get();
+        ssData.preViewTheme = $(this).text();
+        hmd.system.save(ssData);
+        hmd.previewWin && hmd.previewWin.emit('setTheme',ssData);
+      });
+    };
+	});
+  
+  studio.directive('studioPreviewhighlighttheme',function(){
+    return function($scope,elem){  
+      $(elem[0]).on('click','a',function(){
+        $('.previewHighlightThemeBtn').removeClass('current');
+        $(this).addClass('current');
+        var ssData = hmd.system.get();
+        ssData.preViewHighLightTheme = $(this).text();
+        hmd.system.save(ssData);
+        hmd.previewWin && hmd.previewWin.emit('setTheme',ssData);
+      });
+    };
+	});
 })();

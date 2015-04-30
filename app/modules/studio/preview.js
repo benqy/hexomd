@@ -10,6 +10,8 @@ win.on('editorScroll',function(scrollInfo){
 });
 
 win.on('setTheme',function(setting){
-  $('head').append('<link href="../../../node_modules/highlight.js/styles/' + setting.preViewHighLightTheme +'.css" rel="stylesheet" />');
-  $('head').append('<link href="../../../css/previewtheme/'+setting.preViewTheme+'.css" rel="stylesheet" />');
+  $('#preViewHighLightTheme').remove();
+  $('#preViewTheme').remove();
+  $('head').append('<link id="preViewHighLightTheme" href="../../../node_modules/highlight.js/styles/' + setting.preViewHighLightTheme +'.css" rel="stylesheet" />');
+  $('head').append('<link id="preViewTheme" href="../../../css/previewtheme/'+setting.preViewTheme+'.css" rel="stylesheet" />');
 });

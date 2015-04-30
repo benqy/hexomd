@@ -34,6 +34,18 @@
     deadline:1000
   };
   
+  //读取theme目录,生成样式列表
+  system.readCssList = function(path){
+    var files = fs.readdirSync(path),themes={};
+    files.forEach(function (file) {
+      if(~file.indexOf('.css')){
+      	file = file.replace('.css','');
+        themes[file] = file;
+      } 
+    });
+    return themes;
+  };
+  
   //读取设置
   system.get = function () {
     return $.extend(defaultSystemData,util.readJsonSync(dataFile));

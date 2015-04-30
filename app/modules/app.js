@@ -2,7 +2,7 @@
   var gui = require('nw.gui');
   
 
-  var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.studio','hmd.system']),
+  var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.filters','hmd.studio','hmd.system']),
       fs = require('fs'),
       //模块根目录
       baseModuleDir = './app/modules/';

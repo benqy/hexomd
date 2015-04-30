@@ -10,6 +10,33 @@
     <a studio-openfile href="javascript://" class="btn btn-primary" title="打开文件"><i class="glyphicon glyphicon-open-file"></i></a>
     <a studio-opendir href="javascript://" class="btn btn-primary" title="打开目录"><i class="glyphicon glyphicon-folder-open"></i></a>
     <a studio-preview href="javascript://" class="btn btn-primary" title="预览"><i class="glyphicon glyphicon-eye-open"></i></a>
-    <a studio-save href="javascript://" class="btn btn-primary"  ng-class="{'disabled':!editorChanged}" title="保存更改(Ctrl+S)" style="border-radius:0;"><i class="glyphicon glyphicon-floppy-disk"></i></a>
+    <div class="btn-group" hmd-dropdownlist role="group">
+      <button type="button"  class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        编辑样式
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" studio-theme>
+        <li ng-repeat="theme in themes | toArray"><a class="themeBtn" ng-class="{current:currpreTheme == theme}" href="javascript:;">{{theme}}</a></li>
+      </ul>
+  	</div>
+    <div class="btn-group" hmd-dropdownlist role="group">
+      <button type="button"  class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        预览样式
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" studio-previewtheme>
+        <li ng-repeat="preTheme in preViewThemes | toArray" ><a class="previewThemeBtn" ng-class="{current:currPreviewTheme == preTheme}" href="javascript:;" >{{preTheme}}</a></li>
+      </ul>
+  	</div>
+    <div class="btn-group" hmd-dropdownlist role="group">
+      <button type="button"  class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        代码样式
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" studio-previewhighlighttheme>
+        <li ng-repeat="prehighlightTheme in preViewHighLightThemes | toArray" ><a class="previewHighlightThemeBtn" ng-class="{current:currpreViewHighLightThemes == prehighlightTheme}" href="javascript:;" >{{prehighlightTheme}}</a></li>
+      </ul>
+  	</div>
+    <a studio-save href="javascript://" class="btn btn-primary"  style="border-radius:0;"  ng-class="{'disabled':!editorChanged}" title="保存更改(Ctrl+S)"><i class="glyphicon glyphicon-floppy-disk"></i></a>
 	</section>
 </footer>
