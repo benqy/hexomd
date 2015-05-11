@@ -12,12 +12,7 @@
     $scope.systemSetting = system.get();
 
     $scope.save = function (systemSetting) {
-      var qiniu = require('../app/node_modules/qiniu');
-      qiniu.conf.ACCESS_KEY = systemSetting.accessKey;
-      qiniu.conf.SECRET_KEY = systemSetting.secretKey;
-      var putPolicy = new qiniu.rs.PutPolicy(systemSetting.bucketName);
-      putPolicy.expires = Math.round(new Date().getTime() / 1000) + systemSetting.deadline * 3600;
-      systemSetting.qiniutoken = putPolicy.token();
+      systemSetting = system.qiniuKeygen(systemSetting);
       system.save(systemSetting);
     };
   });

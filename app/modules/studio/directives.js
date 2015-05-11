@@ -7,7 +7,7 @@
       hmd.editor.init({
         el:elem[0],
         theme:systemData.theme,
-        qiniuToken:systemData.qiniutoken,
+        qiniuToken:hmd.system.qiniuKeygen(systemData).qiniutoken,
         bucketHost:systemData.bucketHost
       },systemData.lastFile);
       //保存最后一次打开的文件

@@ -45,6 +45,17 @@
     });
     return themes;
   };
+
+  //生成七牛存储空间token
+  system.qiniuKeygen = function(systemSetting){
+    var qiniu = require('../app/node_modules/qiniu');
+    qiniu.conf.ACCESS_KEY = systemSetting.accessKey;
+    qiniu.conf.SECRET_KEY = systemSetting.secretKey;
+    var putPolicy = new qiniu.rs.PutPolicy(systemSetting.bucketName);
+    putPolicy.expires = Math.round(new Date().getTime() / 1000) + systemSetting.deadline * 3600;
+    systemSetting.qiniutoken = putPolicy.token();
+    return systemSetting;
+  };
   
   //读取设置
   system.get = function () {

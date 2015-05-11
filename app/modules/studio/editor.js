@@ -133,7 +133,7 @@
         }
       };
       startDate = new Date().getTime();
-      	xhr.send(formData);
+      xhr.send(formData);
     },
     openFile:function(){
       var me = this;
