@@ -8,6 +8,7 @@
   fs = require('fs'),
   util = require('./helpers/util'),
   when = require('./node_modules/when');
+  var checkUpdateTimer;
   hmd.updater = {
     get: function (url) {
       var deferred = when.defer(),
@@ -19,7 +20,7 @@
       //超时
       var timer = setTimeout(function () {
         req.abort();
-        alert('更新失败,可能github被墙了,' + url);
+        hmd.msg('===更新失败,请检查网络===', hmd.MSG_LEVEL.error);
         deferred.resolve();
       }, 120000);
       req = protocolModule.get(urlOpt, function (res) {
@@ -74,10 +75,16 @@
       });
     },
     checkUpdate: function () {
+      hmd.msg('===正在检查更新===');
+      //超时检查
+      checkUpdateTimer =setTimeout(function(){
+        hmd.msg('===更新失败,可能github被墙了===', hmd.MSG_LEVEL.error);
+      }, 10000);
       var locPackage = require('nw.gui').App.manifest;
       //获取版本信息和更新文件列表
       hmd.updater.get(packageFile)
       .then(function (packageData) {
+        //clearTimeout(checkUpdateTimer);
         packageData.text = packageData.buffer.toString();
         if (!packageData.text) return;
         var remotePackage = JSON.parse(packageData.text);
