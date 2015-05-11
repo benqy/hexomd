@@ -54,5 +54,12 @@
         $el.find('ul').toggle();
       });
     };
-  }]);
+  }])
+  .directive('hmdUpdate', [function () {
+    return function (scope, elem) {
+      $(elem[0]).on('click', function () {
+        hmd.updater.checkUpdate();
+      });
+    };
+  }])
 })();
