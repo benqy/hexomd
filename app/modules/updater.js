@@ -64,7 +64,7 @@
       //超时检查
       checkUpdateTimer =setTimeout(function(){
         hmd.msg('===更新失败,可能github被墙了===', hmd.MSG_LEVEL.error);
-      }, 10000);
+      }, 120000);
       var locPackage = require('nw.gui').App.manifest;
       //获取版本信息和更新文件列表
       hmd.updater.get(packageFile)
