@@ -24,6 +24,7 @@
       this.setTheme(options.theme);
       //指定要打开的文件,如果未指定,则保存时会弹出文件选择对话框
       this.setFile(filepath);
+      this.parse();
       //编辑器内容修改时触发change事件
       this.cm.on('change', function (em, changeObj) {
         me.fire('change', {
@@ -52,14 +53,24 @@
      // }
     },
     initMarked:function(){
-      this.marked = require('../app/node_modules/marked');
+      var marked = this.marked = require('../app/node_modules/marked');
+      var renderer = new marked.Renderer();
+      renderer.heading = function (text, level) {
+        var escapedText = text.toLowerCase();//.replace(/[^\w]+/g, '-');
+        return '<h' + level + '><a name="' +
+                      escapedText +
+                       '" class="anchor" href="#' +
+                       escapedText +
+                       '"><span class="header-link"></span></a>' +
+                        text + '</h' + level + '>';
+      };
       this.marked.setOptions({
-        renderer: new this.marked.Renderer(),
+        renderer: renderer,
         gfm: true,
         tables: true,
         breaks: true,
         pedantic: false,
-        sanitize: true,
+        sanitize: false,
         smartLists: true,
         smartypants: false,
         highlight: function (code) {
@@ -69,7 +80,19 @@
     },
     //解析markdown
     parse:function(){
-      return this.marked(this.cm.getValue());
+      var tokens = this.marked.lexer(this.cm.getValue());
+      var toc = [];
+      var id;
+      var tocHTML = '<div id="toc" class="toc"><ul class="toc-tree">';
+      var levelCount = {};
+      tokens.forEach(function(token){
+        if(token.type == 'heading'){
+          id = token.text.toLowerCase();//.replace(/[^\w]+/g, '-');
+          tocHTML += '<li class="toc-item toc-level-'+token.depth+'"><a class="toc-link" href="#'+id+'"><span class="toc-number"></span> <span class="toc-text">'+token.text+'</span></a></li>';
+        }
+      });
+      tocHTML += '</ul></div>';
+      return this.marked(this.cm.getValue()).replace('[TOC]',tocHTML);
     },
     initQiniu:function(options){
       this.qiniuToken = options.qiniuToken;
