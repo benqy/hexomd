@@ -55,20 +55,12 @@
     initMarked:function(){
       var marked = this.marked = require('../app/node_modules/marked');
       var renderer = new marked.Renderer();
-      renderer.heading = function (text, level) {
-        var escapedText = text.toLowerCase();//.replace(/[^\w]+/g, '-');
-        return '<h' + level + '><a name="' +
-                      escapedText +
-                       '" class="anchor" href="#' +
-                       escapedText +
-                       '"><span class="header-link"></span></a>' +
-                        text + '</h' + level + '>';
-      };
       this.marked.setOptions({
         renderer: renderer,
         gfm: true,
         tables: true,
         breaks: true,
+        emoji:true,
         pedantic: false,
         sanitize: false,
         smartLists: true,
@@ -80,19 +72,7 @@
     },
     //解析markdown
     parse:function(){
-      var tokens = this.marked.lexer(this.cm.getValue());
-      var toc = [];
-      var id;
-      var tocHTML = '<div id="toc" class="toc"><ul class="toc-tree">';
-      var levelCount = {};
-      tokens.forEach(function(token){
-        if(token.type == 'heading'){
-          id = token.text.toLowerCase();//.replace(/[^\w]+/g, '-');
-          tocHTML += '<li class="toc-item toc-level-'+token.depth+'"><a class="toc-link" href="#'+id+'"><span class="toc-number"></span> <span class="toc-text">'+token.text+'</span></a></li>';
-        }
-      });
-      tocHTML += '</ul></div>';
-      return this.marked(this.cm.getValue()).replace('[TOC]',tocHTML);
+      return this.marked(this.cm.getValue());
     },
     initQiniu:function(options){
       this.qiniuToken = options.qiniuToken;
