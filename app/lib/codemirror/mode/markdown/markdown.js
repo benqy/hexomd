@@ -66,6 +66,8 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
   ,   linkhref = 'string'
   ,   em       = 'em'
   ,   strong   = 'strong'
+  , 	toc = 'toc'
+  ,		emoji = 'emoji'
   ,   strikethrough = 'strikethrough';
 
   var hrRE = /^([*\-=_])(?:\s*\1){2,}\s*$/
@@ -73,6 +75,8 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
   ,   olRE = /^[0-9]+\.\s+/
   ,   taskListRE = /^\[(x| )\](?=\s)/ // Must follow ulRE or olRE
   ,   atxHeaderRE = /^#+/
+  , 	tocRE = /\[TOC\]/
+  , 	emojiRE = /^:([A-Za-z0-9_\-\+]+?):/
   ,   setextHeaderRE = /^(?:\={1,}|-{1,})$/
   ,   textRE = /^[^#!\[\]*_\\<>` "'(~]+/;
 
@@ -142,6 +146,10 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       if (modeCfg.highlightFormatting) state.formatting = "header";
       state.f = state.inline;
       return getType(state);
+    } else if(match = stream.match(tocRE)){
+      return toc;
+    } else if(match = stream.match(emojiRE)){
+      return emoji;
     } else if (state.prevLineHasContent && (match = stream.match(setextHeaderRE))) {
       state.header = match[0].charAt(0) == '=' ? 1 : 2;
       if (modeCfg.highlightFormatting) state.formatting = "header";
