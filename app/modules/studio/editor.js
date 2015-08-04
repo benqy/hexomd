@@ -148,6 +148,16 @@
       }, false);
       this.openFileInput.trigger('click');
     },
+    export:function(){
+      var me = this;
+      this.saveAsInput = $('<input style="display:none;" type="file"  accept=".html" nwsaveas/>');
+      this.saveAsInput[0].addEventListener("change", function (evt) {
+        if(this.value){
+          util.writeFileSync(this.value, me.parse());
+        }
+      }, false);
+      this.saveAsInput.trigger('click');
+    },
     //弹出保存文件对话框
     saveAs:function(){
       var me = this;

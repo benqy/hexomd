@@ -126,6 +126,14 @@
     };
   });
   
+  studio.directive('studioExport', function () {    
+    return function ($scope, elem) {
+      $(elem[0]).on('click',function(){
+        hmd.editor.export();
+      });
+    };
+  });
+  
   //保存
   studio.directive('studioSave',function(){
     return function($scope,elem){
