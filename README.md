@@ -18,6 +18,12 @@ HexoMD
 7.  导出html文件功能.
 8.  目录语法
 
+### 源代码如何运行
+
+下载 http://nwjs.io/(目前我只在win64测试过)
+
+解压缩到源代码根目录,双击nw.exe即可
+
 
 ### 文档
 [开发进度](https://trello.com/b/cagX7F2r/hexomd)
