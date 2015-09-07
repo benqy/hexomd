@@ -154,6 +154,7 @@
       this.saveAsInput[0].addEventListener("change", function (evt) {
         if(this.value){
           util.writeFileSync(this.value, me.parse());
+          require('nw.gui').Shell.showItemInFolder(this.value);
         }
       }, false);
       this.saveAsInput.trigger('click');
