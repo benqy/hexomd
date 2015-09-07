@@ -20,7 +20,7 @@ HexoMD
 
 ### 源代码如何运行
 
-下载 http://nwjs.io/(目前我只在win64测试过)
+下载 [NW.js](http://nwjs.io/)(目前我只在win64测试过)
 
 解压缩到源代码根目录,双击nw.exe即可
 
