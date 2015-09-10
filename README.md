@@ -16,6 +16,7 @@ HexoMD
 5.  **自动上传图片**(使用七牛云存储,要自己配置,因为如果我的七牛空间很小,只是我自己用的,[配置教程](http://benq.im/2015/04/28/hexomd-05/)）.
 6.  **[emoji](http://www.emoji-cheat-sheet.com/)表情功能**.  
 7.  导出html文件功能.
+8.  目录语法
 
 
 ### 文档
@@ -28,4 +29,3 @@ emoji分割线:
 
 自动上传图片,复制图片(比如qq截图,系统截屏),然后在编辑器里ctrl+v即可
 ![](http://7ximoo.com1.z0.glb.clouddn.com/efpjr8uq1hj5g4qtn0mtc5deip.png)
-
