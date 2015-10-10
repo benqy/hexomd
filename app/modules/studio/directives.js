@@ -140,12 +140,15 @@
       var editor = hmd.editor;
        //标识是否有未改动的变更.
       $scope.editorChanged = false;
+      hmd.editorChanged = false;
       editor.on('change', function (cm, change) {
+        hmd.editorChanged = true;
         $scope.editorChanged = true;
         $scope.$digest();
       });
       editor.on('saved', function () {
         $scope.editorChanged = false;
+        hmd.editorChanged = false;
         $scope.$digest();
       });
       

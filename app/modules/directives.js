@@ -5,7 +5,9 @@
   win.on('close', function () {
     var me = this;
     hmd.previewWin && hmd.previewWin.close();
-    me.close(true);
+    if(!hmd.editorChanged || confirm('文档未保存,确定关闭么?')){
+      me.close(true);
+    }
   });
   angular.module('hmd.directives', [])
   //最小化窗口
