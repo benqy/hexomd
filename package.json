@@ -11,7 +11,7 @@
   "window": {
     "title": "HexoMD",
     "icon": "app/img/logo.png",
-    "toolbar": true,
+    "toolbar": false,
     "frame": false,
     "width": 1000,
     "height": 700,
