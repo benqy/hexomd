@@ -11,7 +11,7 @@
   if (!fs.existsSync(system.dataPath)) {
     fs.mkdirSync(system.dataPath);
   }
- 	
+
   //默认设置
   var defaultSystemData = {
     //最后一次打开的文件
@@ -21,8 +21,7 @@
     //预览窗口样式
     preViewTheme:'github',
     //预览代码块样式
-    preViewHighLightTheme:'default',
-    
+    preViewHighLightTheme:'solarized-light',
     /*七牛空间设置*/
     accessKey:'',
     secretKey:'',
@@ -33,7 +32,7 @@
     //过期时间,从设置之后多少小时过期.
     deadline:1000
   };
-  
+
   //读取theme目录,生成样式列表
   system.readCssList = function(path){
     var files = fs.readdirSync(path),themes={};

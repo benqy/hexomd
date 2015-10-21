@@ -646,3 +646,22 @@
   position: relative;
   border-color: #4183c4;
 }
+/*目录*/
+.toc ul{
+  list-style:none;
+}
+.toc ul .toc-level-2{
+  padding-left:10px;
+}
+.toc ul .toc-level-3{
+  padding-left:30px;
+}
+.toc ul .toc-level-4{
+  padding-left:50px;
+}
+.toc ul .toc-level-5{
+  padding-left:70px;
+}
+.toc ul .toc-level-6{
+  padding-left:90px;
+}
