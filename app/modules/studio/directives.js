@@ -14,7 +14,7 @@
       hmd.editor.on('setFiled',function(filepath){
         hmd.system.setLastFile(filepath);
       });
-      
+
       //显示保存信息
       hmd.editor.on('saved',function(filepath){
         var fileNameArr = filepath.split('\\');

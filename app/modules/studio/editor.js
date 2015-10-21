@@ -9,15 +9,17 @@
     extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"},
     dragDrop: false,
     autofocus: true,
-    lineWrapping: true,    
+    lineWrapping: true,
     foldGutter: true,
     styleActiveLine: true
   };
-	
+
+  var shareReg = /\s*\[SHARE:(.*)\]/;
+
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
-      options = $.extend({}, defaultConfig, options);      
+      options = $.extend({}, defaultConfig, options);
       this.initMarked();
       this.initQiniu(options);
       this.cm = CodeMirror.fromTextArea(el, options);
@@ -41,7 +43,7 @@
         "Ctrl-S": function () {
           me.save();
         }
-      });      
+      });
       //图片上传
     },
     setTheme:function(theme){
@@ -72,7 +74,7 @@
     },
     //解析markdown
     parse:function(){
-      return this.marked(this.cm.getValue());
+      return this.marked(this.cm.getValue().replace(shareReg,''));
     },
     initQiniu:function(options){
       this.qiniuToken = options.qiniuToken;
@@ -121,7 +123,7 @@
       formData.append('token', token);
       formData.append('file', f);
       var taking;
-				
+
       xhr.onreadystatechange = function (response) {
         if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText) {
           var blkRet = JSON.parse(xhr.responseText);
@@ -149,11 +151,19 @@
       this.openFileInput.trigger('click');
     },
     export:function(){
-      var me = this;
+      var me = this,
+          ssData = hmd.system.get();
       this.saveAsInput = $('<input style="display:none;" type="file"  accept=".html" nwsaveas/>');
       this.saveAsInput[0].addEventListener("change", function (evt) {
+        var template,styleText;
         if(this.value){
-          util.writeFileSync(this.value, me.parse());
+          //读取样式内嵌
+          styleText = '<style type="text/css">'+ util.readFileSync('app/css/previewtheme/' + ssData.preViewTheme + '.css') +'</style>';
+          styleText += '<style type="text/css">'+ util.readFileSync('app/node_modules/highlight.js/styles/' + ssData.preViewHighLightTheme + '.css') +'</style>';
+          template = util.readFileSync('app/modules/studio/views/export.html');
+          template = template.replace('<!--cssMarked-->',styleText);
+          template = template.replace('<!--content-->',me.parse());
+          util.writeFileSync(this.value, template);
           require('nw.gui').Shell.showItemInFolder(this.value);
         }
       }, false);
