@@ -307,3 +307,17 @@ div.CodeMirror-cursors {
 
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
+
+/*滚动条*/
+.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div{
+    position: absolute;
+    background: #357ebd !important;
+    border-radius: 3px;
+}
+/*目录*/
+.cm-toc{
+    background: #ccc;
+}
+.cm-emoji {
+  color: #F7A21B;
+}

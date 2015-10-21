@@ -11,7 +11,8 @@
     autofocus: true,
     lineWrapping: true,
     foldGutter: true,
-    styleActiveLine: true
+    styleActiveLine: true,
+    scrollbarStyle: "overlay"
   };
 
   var shareReg = /\s*\[SHARE:(.*)\]/;
