@@ -27,8 +27,10 @@
     secretKey:'',
     //空间名称
     bucketName:'test',
+    docBucketName:'markdowndoc',
     //空间访问地址
     bucketHost:'7xit3a.com1.z0.glb.clouddn.com',
+    docBucketHost:'',
     //过期时间,从设置之后多少小时过期.
     deadline:1000
   };
@@ -46,11 +48,12 @@
   };
 
   //生成七牛存储空间token
-  system.qiniuKeygen = function(systemSetting){
+  system.qiniuKeygen = function(systemSetting,bucketName){
     var qiniu = require('../app/node_modules/qiniu');
+    bucketName = bucketName || systemSetting.bucketName;
     qiniu.conf.ACCESS_KEY = systemSetting.accessKey;
     qiniu.conf.SECRET_KEY = systemSetting.secretKey;
-    var putPolicy = new qiniu.rs.PutPolicy(systemSetting.bucketName);
+    var putPolicy = new qiniu.rs.PutPolicy(bucketName);
     putPolicy.expires = Math.round(new Date().getTime() / 1000) + systemSetting.deadline * 3600;
     systemSetting.qiniutoken = putPolicy.token();
     return systemSetting;

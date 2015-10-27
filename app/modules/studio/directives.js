@@ -8,6 +8,7 @@
         el:elem[0],
         theme:systemData.theme,
         qiniuToken:hmd.system.qiniuKeygen(systemData).qiniutoken,
+        //qiniuDocShareToken:hmd.system.qiniuKeygen(systemData,systemData.docBucketName).qiniutoken,
         bucketHost:systemData.bucketHost
       },systemData.lastFile);
       //保存最后一次打开的文件
@@ -125,15 +126,26 @@
       });
     };
   });
-  
-  studio.directive('studioExport', function () {    
+
+  studio.directive('studioExport', function () {
     return function ($scope, elem) {
       $(elem[0]).on('click',function(){
         hmd.editor.export();
       });
     };
   });
-  
+
+  studio.directive('studioShare', function () {
+    return function ($scope, elem) {
+      $(elem[0]).on('click',function(){
+        hmd.editor.share(function(href){
+          href += '?' + Date.now();
+          require('nw.gui').Shell.openItem(href);
+        });
+      });
+    };
+  });
+
   //保存
   studio.directive('studioSave',function(){
     return function($scope,elem){

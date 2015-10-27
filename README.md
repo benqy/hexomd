@@ -35,3 +35,8 @@ emoji分割线:
 
 自动上传图片,复制图片(比如qq截图,系统截屏),然后在编辑器里ctrl+v即可
 ![](http://7ximoo.com1.z0.glb.clouddn.com/efpjr8uq1hj5g4qtn0mtc5deip.png)
+
+
+一键上传文档
+![](http://7ximoo.com1.z0.glb.clouddn.com/q9sxxcp8hydmfzstkch0tqzhhn.png)
+文档里如果包含[SHARE:文件名],则点击工具栏的云朵按钮,会自动上传到七牛空间(需配置空间地址),并在浏览器打开文档.

@@ -1,6 +1,7 @@
 (function () {
   var util = require('./helpers/util'),
-      fs = require('fs');
+      fs = require('fs'),
+      qiniu = require('../app/node_modules/qiniu');
 
   var defaultConfig = {
     theme: 'ambiance',
@@ -77,9 +78,32 @@
     parse:function(){
       return this.marked(this.cm.getValue().replace(shareReg,''));
     },
+    share:function(fn){
+      var shareArgs =  shareReg.exec(this.cm.getValue()),
+          me = this,
+          systemSetting = hmd.system.get(),
+          file;
+      if(!shareArgs || !shareArgs[1]){
+        me.fire('error',{msg:'缺少[SHARE:文件名]标签'});
+        return;
+      }
+      file = ~shareArgs[1].indexOf('.html') ? shareArgs[1] : shareArgs[1] + '.html';
+    	var putPolicy = new qiniu.rs.PutPolicy(systemSetting.docBucketName);
+    	putPolicy.expires = Math.round(new Date().getTime() / 1000) + systemSetting.deadline * 3600;
+    	putPolicy.scope = systemSetting.docBucketName + ':' + file;
+      qiniu.io.put(putPolicy.token(), file, this.generalHtmlStr(), new qiniu.io.PutExtra(), function(err, ret) {
+        if (!err) {
+          fn('http://' + systemSetting.docBucketHost + '/' + ret.key);
+        } else {
+          // 上传失败， 处理返回代码
+          me.fire('error',{msg:'七牛设置错误'});
+        }
+      });
+    },
     initQiniu:function(options){
       this.qiniuToken = options.qiniuToken;
       this.bucketHost = options.bucketHost;
+      //this.qiniuDocShareToken= options.qiniuDocShareToken;
       $('.studio-wrap')[0].onpaste = this.uploadImage.bind(this);
     },
     //设置当前文件
@@ -151,20 +175,23 @@
       }, false);
       this.openFileInput.trigger('click');
     },
+    generalHtmlStr:function(){
+      var ssData = hmd.system.get();
+      //读取样式文件,内嵌到导出的html页面
+      styleText = '<style type="text/css">'+ util.readFileSync('app/css/previewtheme/' + ssData.preViewTheme + '.css') +'</style>';
+      styleText += '<style type="text/css">'+ util.readFileSync('app/node_modules/highlight.js/styles/' + ssData.preViewHighLightTheme + '.css') +'</style>';
+      template = util.readFileSync('app/modules/studio/views/export.html');
+      template = template.replace('<!--cssMarked-->',styleText);
+      template = template.replace('<!--content-->',this.parse());
+      return template;
+    },
     export:function(){
-      var me = this,
-          ssData = hmd.system.get();
+      var me = this;
       this.saveAsInput = $('<input style="display:none;" type="file"  accept=".html" nwsaveas/>');
       this.saveAsInput[0].addEventListener("change", function (evt) {
         var template,styleText;
         if(this.value){
-          //读取样式文件,内嵌到导出的html页面
-          styleText = '<style type="text/css">'+ util.readFileSync('app/css/previewtheme/' + ssData.preViewTheme + '.css') +'</style>';
-          styleText += '<style type="text/css">'+ util.readFileSync('app/node_modules/highlight.js/styles/' + ssData.preViewHighLightTheme + '.css') +'</style>';
-          template = util.readFileSync('app/modules/studio/views/export.html');
-          template = template.replace('<!--cssMarked-->',styleText);
-          template = template.replace('<!--content-->',me.parse());
-          util.writeFileSync(this.value, template);
+          util.writeFileSync(this.value, me.generalHtmlStr());
           require('nw.gui').Shell.showItemInFolder(this.value);
         }
       }, false);
