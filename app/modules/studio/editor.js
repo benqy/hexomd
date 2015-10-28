@@ -1,7 +1,6 @@
 (function () {
   var util = require('./helpers/util'),
-      fs = require('fs'),
-      qiniu = require('../app/node_modules/qiniu');
+      fs = require('fs');
 
   var defaultConfig = {
     theme: 'ambiance',
@@ -23,7 +22,7 @@
       var el = options.el,txt,me = this;
       options = $.extend({}, defaultConfig, options);
       this.initMarked();
-      this.initQiniu(options);
+      this.initClound(options);
       this.cm = CodeMirror.fromTextArea(el, options);
       this.setTheme(options.theme);
       //指定要打开的文件,如果未指定,则保存时会弹出文件选择对话框
@@ -74,36 +73,37 @@
         }
       });
     },
-    //解析markdown
     parse:function(){
       return this.marked(this.cm.getValue().replace(shareReg,''));
     },
+    //上传文档到云端
     share:function(fn){
       var shareArgs =  shareReg.exec(this.cm.getValue()),
           me = this,
-          systemSetting = hmd.system.get(),
-          file;
+          path,
+          ss = hmd.system.get();
       if(!shareArgs || !shareArgs[1]){
         me.fire('error',{msg:'缺少[SHARE:文件名]标签'});
         return;
       }
-      file = ~shareArgs[1].indexOf('.html') ? shareArgs[1] : shareArgs[1] + '.html';
-    	var putPolicy = new qiniu.rs.PutPolicy(systemSetting.docBucketName);
-    	putPolicy.expires = Math.round(new Date().getTime() / 1000) + systemSetting.deadline * 3600;
-    	putPolicy.scope = systemSetting.docBucketName + ':' + file;
-      qiniu.io.put(putPolicy.token(), file, this.generalHtmlStr(), new qiniu.io.PutExtra(), function(err, ret) {
-        if (!err) {
-          fn('http://' + systemSetting.docBucketHost + '/' + ret.key);
-        } else {
-          // 上传失败， 处理返回代码
-          me.fire('error',{msg:'七牛设置错误'});
+      path = ~shareArgs[1].indexOf('.html') ? shareArgs[1] : shareArgs[1]+ '.html';
+      hmd.clound.upload({
+        cloundType:ss.cloundType,
+        path:path,
+        host:ss.docBucketHost,
+        bucketName:ss.docBucketName,
+        accessKey:ss.accessKey,
+    		secretKey:ss.secretKey,
+        body:this.generalHtmlStr(),
+        onSuccess:function(data){
+          fn(data.url);
+        },
+        onError:function(data){
+          me.fire('error',{msg:data.msg});
         }
       });
     },
-    initQiniu:function(options){
-      this.qiniuToken = options.qiniuToken;
-      this.bucketHost = options.bucketHost;
-      //this.qiniuDocShareToken= options.qiniuDocShareToken;
+    initClound:function(options){
       $('.studio-wrap')[0].onpaste = this.uploadImage.bind(this);
     },
     //设置当前文件
@@ -124,46 +124,31 @@
       return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     },
     uploadImage:function(ev){
-      var clipboardData, items, item;
-      if(!this.qiniuToken){
-        this.fire('error',{msg:'未设置七牛密钥,无法上传图片'});
-      }
-      else if (ev && (clipboardData = ev.clipboardData) && (items = clipboardData.items) &&
+      var clipboardData, items, item,ss = hmd.system.get();
+      if (ev && (clipboardData = ev.clipboardData) && (items = clipboardData.items) &&
           (item = items[0]) && item.kind == 'file' && item.type.match(/^image\//i)) {
         var blob = item.getAsFile();
-        var fileName = this.guid() + '.' +  blob.type.split('/')[1];
-        this._qiniuUpload(blob, this.qiniuToken, fileName, function (blkRet) {
-          var img = '![](http://'+this.bucketHost+'/' + blkRet.key + ')';
-          this.cm.doc.replaceSelection(img);
-        }.bind(this));
+        var path = this.guid() + '.' +  blob.type.split('/')[1];
+        hmd.clound.upload({
+          cloundType:ss.cloundType,
+          path:path,
+          host:ss.bucketHost,
+          bucketName:ss.bucketName,
+          accessKey:ss.accessKey,
+    			secretKey:ss.secretKey,
+          body:blob,
+          fileType:'image',
+          onSuccess:function(data){
+            var img = '![](http://'+ ss.bucketHost+'/' + data.key + ')';
+          	this.cm.doc.replaceSelection(img);
+            //fn(data.url);
+          }.bind(this),
+          onError:function(data){
+            me.fire('error',{msg:data.msg});
+          }
+        });
         return false;
       }
-    },
-    _qiniuUpload:function (f, token, key,fn) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://up.qiniu.com', true);
-      var formData, startDate;
-      formData = new FormData();
-      if (key !== null && key !== undefined) formData.append('key', key);
-      formData.append('token', token);
-      formData.append('file', f);
-      var taking;
-
-      xhr.onreadystatechange = function (response) {
-        if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText) {
-          var blkRet = JSON.parse(xhr.responseText);
-          fn(blkRet);
-        } else if (xhr.status != 200 && xhr.responseText) {
-          if(xhr.status == 631){
-            hmd.editor.fire('error',{msg:'七牛空间不存在.'});
-          }
-          else{
-            hmd.editor.fire('error',{msg:'七牛设置错误.'});
-          }
-        }
-      };
-      startDate = new Date().getTime();
-      xhr.send(formData);
     },
     openFile:function(){
       var me = this;

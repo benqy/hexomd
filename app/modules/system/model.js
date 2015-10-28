@@ -22,7 +22,12 @@
     preViewTheme:'github',
     //预览代码块样式
     preViewHighLightTheme:'solarized-light',
-    /*七牛空间设置*/
+
+    //云存储
+    cloundType:'Qiniu',
+    /*
+       七牛空间设置
+    */
     accessKey:'',
     secretKey:'',
     //空间名称
@@ -33,6 +38,10 @@
     docBucketHost:'',
     //过期时间,从设置之后多少小时过期.
     deadline:1000
+
+    /*
+    又拍云设置
+    */
   };
 
   //读取theme目录,生成样式列表

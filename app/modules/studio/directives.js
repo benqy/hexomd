@@ -6,10 +6,7 @@
       var systemData = hmd.system.get();
       hmd.editor.init({
         el:elem[0],
-        theme:systemData.theme,
-        qiniuToken:hmd.system.qiniuKeygen(systemData).qiniutoken,
-        //qiniuDocShareToken:hmd.system.qiniuKeygen(systemData,systemData.docBucketName).qiniutoken,
-        bucketHost:systemData.bucketHost
+        theme:systemData.theme
       },systemData.lastFile);
       //保存最后一次打开的文件
       hmd.editor.on('setFiled',function(filepath){

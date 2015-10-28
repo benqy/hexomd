@@ -9,7 +9,7 @@
   hmd.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/studio");
   });
-  
+
 	hmd.storeDir =  require('nw.gui').App.dataPath;
 
   //注册模块,模块内js文件会被自动加载到页面中
