@@ -15,31 +15,35 @@ body {
     /*background: #3E3E42;*/
     background: #1E1E1E;
 }
+.half-width{
+  width:50% !important;
+}
 /***************************自定义滚动条*******************/
-::-webkit-scrollbar-track {
+/*::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     background: rgba(0,0,0,0.9);
-}
+}*/
 
 ::-webkit-scrollbar {
-    width: 10px;
-    background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(202,202,202,0.07)),color-stop(100%,rgba(229,229,229,0.07)));
+    width: 7px;
+    /*background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(202,202,202,0.07)),color-stop(100%,rgba(229,229,229,0.07)));
     background: -webkit-linear-gradient(left,rgba(202,202,202,0.07) 0%,rgba(229,229,229,0.07) 100%);
-    box-shadow: 0 0 1px 0 rgba(0,0,0,.15) inset,0 1px 0 0 #fff;
-    background-color: #ccc;
-}
-
-::-webkit-scrollbar, ::-webkit-scrollbar-thumb {
-    overflow: visible;
-    /*border-radius: 4px;*/
-    border-right: solid 1px #a6a6a6;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,.15) inset,0 1px 0 0 #fff;*/
+    background-color: #222222;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(233,233,233,0.05)),color-stop(100%,rgba(221,221,221,0.05)));
+    overflow: visible;
+    border-radius: 3px;
+  	width:7px;
+    /*border-right: solid 1px #a6a6a6;*/
+}
+
+::-webkit-scrollbar-thumb {
+/*    background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(233,233,233,0.05)),color-stop(100%,rgba(221,221,221,0.05)));
     background: -webkit-linear-gradient(left,rgba(233,233,233,0.05) 0%,rgba(221,221,221,0.05) 100%);
-    box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
-    background-color: #ddd;
+    box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);*/
+    background-color: #357EBD;
 }
 
 
@@ -124,6 +128,11 @@ body {
         width: calc(100% - 300px);
     }
 
+.app .preview-in{
+  width:50%;
+  height:100%;
+  overflow:hidden;
+}
 
 /************************view动画************************/
 .well[ui-view] {

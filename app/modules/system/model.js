@@ -22,7 +22,8 @@
     preViewTheme:'github',
     //预览代码块样式
     preViewHighLightTheme:'solarized-light',
-
+		//预览窗口模式,out=打开新窗口,in=编辑窗口右侧
+    preViewWindow:'in',// in
     //云存储
     cloundType:'Qiniu',
     /*
