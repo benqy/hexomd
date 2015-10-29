@@ -44,7 +44,7 @@ body {
 
 ::-webkit-scrollbar {
     height: 10px;
-    width: 7px;
+    width: 6px;
     background: #222;
 }
 
@@ -54,7 +54,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: #357EBD;
-    -webkit-border-radius: 6px
+    -webkit-border-radius: 4px
 }
 
 /*::-webkit-scrollbar-thumb:hover {
@@ -146,7 +146,9 @@ body {
   height:100%;
   overflow:hidden;
 }
-
+.app .preview-in iframe{
+  width: calc(100% - 1px);
+}
 /************************view动画************************/
 .well[ui-view] {
     height: 100%;
