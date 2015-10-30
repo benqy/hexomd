@@ -14,8 +14,8 @@ HexoMD
 3.  实时预览窗口(可选择分栏或者新窗口)
 4.  编辑器,预览,内嵌代码段样式选择和自定义(只要写css文件即可)
 5.  **自动上传图片**(使用七牛云存储,要自己配置,因为如果我的七牛空间很小,只是我自己用的,[配置教程](http://benq.im/2015/04/28/hexomd-05/)）.
-6.  **[emoji](http://www.emoji-cheat-sheet.com/)表情功能**.  
-7.  导出html文件功能.
+6.  **[emoji](http://www.emoji-cheat-sheet.com/)表情**.  
+7.  导出html,pdf文件.
 8.  目录语法
 9.  一键文档分享
 
