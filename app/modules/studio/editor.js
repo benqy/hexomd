@@ -1,6 +1,7 @@
 (function () {
   var util = require('./helpers/util'),
-      fs = require('fs');
+      fs = require('fs'),
+      pdf = require('../app/node_modules/phantom-html2pdf');
 
   var defaultConfig = {
     theme: 'ambiance',
@@ -16,7 +17,7 @@
   };
 
   var shareReg = /\s*\[SHARE:(.*)\]/;
-
+	var pdfReg = /\.pdf/;
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
@@ -172,12 +173,21 @@
     },
     export:function(){
       var me = this;
-      this.saveAsInput = $('<input style="display:none;" type="file"  accept=".html" nwsaveas/>');
+      this.saveAsInput = $('<input style="display:none;" type="file"  accept=".html|.pdf" nwsaveas/>');
       this.saveAsInput[0].addEventListener("change", function (evt) {
         var template,styleText;
-        if(this.value){
-          util.writeFileSync(this.value, me.generalHtmlStr());
-          require('nw.gui').Shell.showItemInFolder(this.value);
+        var path = this.value;
+        var html = me.generalHtmlStr();
+        if(!path) return;
+        if(pdfReg.test(path)){
+          pdf.convert({html : html}, function(result) {
+            result.toFile(path);
+            require('nw.gui').Shell.showItemInFolder(path);
+          });
+        }
+        else{
+          util.writeFileSync(this.value, html);
+        	require('nw.gui').Shell.showItemInFolder(path);
         }
       }, false);
       this.saveAsInput.trigger('click');
