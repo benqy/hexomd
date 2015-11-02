@@ -5,7 +5,7 @@ HexoMD
 
 ###下载
 这是打包好的链接,有自动更新功能,以后只要更新就行
-[打包好的程序v0.8.0.0](http://pan.baidu.com/s/1i3zZp33)
+[打包好的程序v1.0.0.0](http://pan.baidu.com/s/1eQEw1Wm)
 
 ### 目前功能: 
 
