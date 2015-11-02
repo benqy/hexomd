@@ -1,6 +1,5 @@
 (function (global) {
   var gui = require('nw.gui');
-  
 
   var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.filters','hmd.studio','hmd.system']),
       fs = require('fs'),
@@ -25,9 +24,6 @@
       }
     });
   };
-
-  
-  
   //消息等级
   var msgTimer = null;
   var MSG_LEVEL = hmd.MSG_LEVEL = {
@@ -61,7 +57,7 @@
     $navList.find('li').removeClass('active');
     $navList.find('.' + state).addClass('active');
   };
-  
+
   //引入模块
  	hmd.regModule('studio');
   hmd.regModule('system');
