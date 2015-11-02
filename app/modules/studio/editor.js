@@ -125,7 +125,7 @@
       return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     },
     uploadImage:function(ev){
-      var clipboardData, items, item,ss = hmd.system.get();
+      var clipboardData, items, item,ss = hmd.system.get(),me = this;
       if (ev && (clipboardData = ev.clipboardData) && (items = clipboardData.items) &&
           (item = items[0]) && item.kind == 'file' && item.type.match(/^image\//i)) {
         var blob = item.getAsFile();
