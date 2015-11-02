@@ -67,7 +67,7 @@
       }, 120000);
       var locPackage = require('nw.gui').App.manifest;
       //获取版本信息和更新文件列表
-      hmd.updater.get(packageFile)
+      hmd.updater.get(packageFile+ '?'+new Date()*1)
       .then(function (packageData) {
         clearTimeout(checkUpdateTimer);
         packageData.text = packageData.buffer.toString();
