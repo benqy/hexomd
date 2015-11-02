@@ -107,7 +107,7 @@
         scrollTimer = setTimeout(function(){
         	hmd.previewWin && hmd.previewWin.emit('editorScroll',scrollInfo);
           hmd.iframePreWin && hmd.iframePreWin.emit('editorScroll',scrollInfo);
-        },150);
+        },10);
       });
 
       $(elem[0]).on('click',function(){

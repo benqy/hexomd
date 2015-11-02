@@ -6,9 +6,14 @@ win.on('change', function (mdHtml) {
 });
 
 win.on('editorScroll',function(scrollInfo){
-  var scrollTop = $(document.body).height()*scrollInfo.top/scrollInfo.height;
-  //console.log(scrollInfo.top/scrollInfo.height,$(document.body).height())
-  $(document.body).scrollTop(scrollTop);
+  var scrollTop;
+  if(scrollInfo.height - (scrollInfo.clientHeight + scrollInfo.top) < 20){
+    $(document.body).scrollTop($(document.body).height());
+  }
+  else{
+  	scrollTop = $(document.body).height()*scrollInfo.top/scrollInfo.height;
+  	$(document.body).scrollTop(scrollTop);
+  }
 });
 
 win.on('setTheme',function(setting){
