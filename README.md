@@ -28,8 +28,10 @@ HexoMD
 
 ### 文档
 [开发进度](https://trello.com/b/cagX7F2r/hexomd)
-[开发和使用教程系列博客](http://benq.im/2015/04/21/hexomd-01/)
-本文档就是用这个编辑器写的,eg:
+[开发系列博客](http://benq.im/2015/04/21/hexomd-01/)
+[使用教程](http://benq.im/2015/10/29/hexomd-introduction/)
+
+### 示例
 
 emoji分割线:
 :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: 
