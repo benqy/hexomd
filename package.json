@@ -20,7 +20,7 @@
     "min_height": 400
   },
   "updater":{
-  	"version":"1.0.0.3",
+  	"version":"1.0.0.4",
     "package":"http://7xit5q.com1.z0.glb.clouddn.com/updater.zip"
   }
 }
