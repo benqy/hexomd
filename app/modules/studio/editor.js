@@ -16,8 +16,8 @@
     scrollbarStyle: "overlay"
   };
 
-  var shareReg = /\s*\[SHARE:(.*)\]/;
-	var pdfReg = /\.pdf/;
+  var SHARE_REG = /\s*\[SHARE:(.*)\]/;
+	var PDF_REG = /\.pdf/;
   hmd.editor = {
     init: function (options,filepath) {
       var el = options.el,txt,me = this;
@@ -46,15 +46,12 @@
           me.save();
         }
       });
-      //图片上传
     },
     setTheme:function(theme){
-      //if(theme != 'default'){
-        $('#editorThemeStyleSheet').remove();
-        var styleSheet = $('<link id="editorThemeStyleSheet" href="lib/codemirror/theme/'+theme+'.css" rel="stylesheet" />');
-        $('head').append(styleSheet);
-      	this.cm.setOption('theme',theme);
-     // }
+      $('#editorThemeStyleSheet').remove();
+      var styleSheet = $('<link id="editorThemeStyleSheet" href="lib/codemirror/theme/'+theme+'.css" rel="stylesheet" />');
+      $('head').append(styleSheet);
+      this.cm.setOption('theme',theme);
     },
     initMarked:function(){
       var marked = this.marked = require('../app/node_modules/marked');
@@ -75,11 +72,11 @@
       });
     },
     parse:function(){
-      return this.marked(this.cm.getValue().replace(shareReg,''));
+      return this.marked(this.cm.getValue().replace(SHARE_REG,''));
     },
     //上传文档到云端
     share:function(fn){
-      var shareArgs =  shareReg.exec(this.cm.getValue()),
+      var shareArgs =  SHARE_REG.exec(this.cm.getValue()),
           me = this,
           path,
           ss = hmd.system.get();
@@ -88,6 +85,7 @@
         return;
       }
       path = ~shareArgs[1].indexOf('.html') ? shareArgs[1] : shareArgs[1]+ '.html';
+      //上传html文档
       hmd.clound.upload({
         cloundType:ss.cloundType,
         path:path,
@@ -109,11 +107,24 @@
     },
     //设置当前文件
     setFile:function(filepath){
-      if(filepath && fs.existsSync(filepath)){
-        var txt = util.readFileSync(filepath);
-        this.filepath = filepath;
-        this.cm.setValue(txt);
-        this.fire('setFiled',this.filepath);
+      if(filepath){
+        //线上文件
+        if(~filepath.indexOf('http://')){
+          hmd.clound.getFile({
+            path:filepath,
+            onSuccess:function(txt){
+              this.cm.setValue(txt);
+              this.fire('setFiled',filepath);
+            }.bind(this)
+          });
+        }
+        //本地文件
+        else if(fs.existsSync(filepath)){
+          var txt = util.readFileSync(filepath);
+          this.filepath = filepath;
+          this.cm.setValue(txt);
+          this.fire('setFiled',this.filepath);
+        }
       }
       else{
         this.filepath = null;
@@ -179,7 +190,7 @@
         var path = this.value;
         var html = me.generalHtmlStr();
         if(!path) return;
-        if(pdfReg.test(path)){
+        if(PDF_REG.test(path)){
           pdf.convert({html : html}, function(result) {
             result.toFile(path);
             require('nw.gui').Shell.showItemInFolder(path);
@@ -206,14 +217,44 @@
     },
     //保存文件
     save: function () {
-      var txt = this.cm.getValue();
-      if(this.filepath){
-        util.writeFileSync(this.filepath, txt);
-      	this.fire('saved',this.filepath);
+      var txt = this.cm.getValue(),
+          path,
+          shareArgs =  SHARE_REG.exec(this.cm.getValue());
+      if(this.filepath || (shareArgs && shareArgs[1])){
+        if(this.filepath){
+          util.writeFileSync(this.filepath, txt);
+          this.fire('saved',this.filepath);
+        }
+        if(shareArgs && shareArgs[1]){
+          path = ~shareArgs[1].indexOf('.md') ? shareArgs[1] : shareArgs[1]+ '.md';
+          this.saveToClound(path)
+        }
       }
       else{
         this.saveAs();
       }
+    },
+    //保存到云存储
+    saveToClound:function(path){
+      var me = this,
+      ss = hmd.system.get();
+      //上传原始markdown文档
+      hmd.clound.upload({
+        cloundType:ss.cloundType,
+        path:path,
+        host:ss.docBucketHost,
+        bucketName:ss.docBucketName,
+        accessKey:ss.accessKey,
+        mime:'text/plain',
+    		secretKey:ss.secretKey,
+        body:this.cm.getValue(),
+        onSuccess:function(data){
+          me.fire('saved',data.path);
+        },
+        onError:function(data){
+          me.fire('error',{msg:data.msg});
+        }
+      });
     },
     events: {},
     fire: function (eventName, obj) {

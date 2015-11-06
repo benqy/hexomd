@@ -1,7 +1,7 @@
 (function (global) {
   var gui = require('nw.gui');
 
-  var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.filters','hmd.studio','hmd.system']),
+  var hmd = global.hmd = angular.module('hmd', ['ui.router','hmd.directives','hmd.filters','hmd.studio','hmd.system','hmd.bucket']),
       fs = require('fs'),
       //模块根目录
       baseModuleDir = './app/modules/';
@@ -20,7 +20,7 @@
     fs.readdirSync(baseModuleDir + name)
     .forEach(function (file) {
       if (~file.indexOf('.js')) {
-        document.write('<script src="modules/' + name + '/' + file + '"></script>');
+        $('head').append('<script src="modules/' + name + '/' + file + '"></script>');
       }
     });
   };
@@ -61,6 +61,7 @@
   //引入模块
  	hmd.regModule('studio');
   hmd.regModule('system');
+	hmd.regModule('bucket');
 
   window.ondragover = function (e) { e.preventDefault(); return false; };
   window.ondrop = function (e) { e.preventDefault(); return false; };

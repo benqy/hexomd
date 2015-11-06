@@ -22,19 +22,22 @@
     },
     uploadQiniu:function(opt){
     	var putPolicy = new qiniu.rs.PutPolicy(opt.bucketName);
-      qiniu.conf.ACCESS_KEY = opt.accessKey;
-    	qiniu.conf.SECRET_KEY = opt.secretKey;
+      var extra = new qiniu.io.PutExtra();
     	putPolicy.expires = Math.round(new Date().getTime() / 1000) + 3600;
     	putPolicy.scope = opt.bucketName + ':' + opt.path;
+      extra.mimeType = opt.mime;
+      qiniu.conf.ACCESS_KEY = opt.accessKey;
+    	qiniu.conf.SECRET_KEY = opt.secretKey;
       if(opt.fileType == 'image'){
         opt.token = putPolicy.token();
         this.qiniuImgUpload(opt);
       }
       else{
-        qiniu.io.put(putPolicy.token(), opt.path, opt.body, new qiniu.io.PutExtra(), function(err, ret) {
+        qiniu.io.put(putPolicy.token(), opt.path, opt.body, extra, function(err, ret) {
           if (!err) {
             opt.onSuccess({
-              url:'http://' + opt.host + '/' + ret.key
+              url:'http://' + opt.host + '/' + ret.key,
+              path:ret.key
             });
           } else {
             opt.onError({
@@ -74,8 +77,40 @@
       startDate = new Date().getTime();
       xhr.send(formData);
     },
-    uploadUpyun:function(opt){
-      
+    readFiles:function(opt){
+      qiniu.conf.ACCESS_KEY = opt.accessKey;
+    	qiniu.conf.SECRET_KEY = opt.secretKey;
+
+      qiniu.rsf.listPrefix(opt.bucketName, null,null, null, function(err, ret) {
+        if(err)throw err;
+        opt.onSuccess && opt.onSuccess(ret);
+      });
+    },
+    getFile:function(opt){
+      $.get(opt.path,{clear:new Date()*1},function(txt){
+        opt.onSuccess && opt.onSuccess(txt);
+      });
+    },
+    delFile:function(opt){
+      qiniu.conf.ACCESS_KEY = opt.accessKey;
+    	qiniu.conf.SECRET_KEY = opt.secretKey;
+      var client = new qiniu.rs.Client();
+      console.log(opt)
+      client.remove(opt.bucketName, opt.path, function(err, ret) {
+        if (!err) {
+          console.log(ret)
+        } else {
+          console.log(err);
+          // http://developer.qiniu.com/docs/v6/api/reference/codes.html
+        }
+      })
     }
   };
 })();
+
+
+
+
+
+
+

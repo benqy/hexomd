@@ -315,3 +315,8 @@ div.errors{
 	width:400px;
 }
 }
+td{background-color:#222 !important;}
+/**bucket table**/
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color:#222;
+}

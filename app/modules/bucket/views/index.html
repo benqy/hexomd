@@ -1,0 +1,31 @@
+<div class="content">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th ng-click="order=order=='filename'?'-filename':'filename';" style="width:250px">文件名
+          <i ng-show="order=='filename'" class="glyphicon glyphicon-sort-by-attributes"></i>
+          <i ng-show="order=='-filename'" class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+        </th>
+        <th ng-click="order=order=='size'?'-size':'size';">Size
+          <i ng-show="order=='size'" class="glyphicon glyphicon-sort-by-attributes"></i>
+          <i ng-show="order=='-size'" class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+        </th>
+        <th>更新时间</th>
+        <th ng-click="order=order=='size'?'-size':'size';">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="file in files">
+          <td>{{file.key}}</td>
+          <td>{{file.fsize/1000}}KB</td>
+          <td>2015-11-06 16:54:12</td>
+          <td>
+            <a ng-show="file.key.indexOf('.md') != -1" href="javascript:;" ng-click="editFile(file)"  title="在编辑器打开"><i class="glyphicon glyphicon-edit"></i></a>
+            <a ng-show="file.key.indexOf('.html') != -1" href="javascript:;" ng-click="openFile(file)"  title="在浏览器打开"><i class="glyphicon glyphicon-globe"></i></a>
+            <!--<a href="javascript:;" ng-click="delFile(file)"  title="删除"><i class="glyphicon glyphicon-trash"></i></a>-->
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>

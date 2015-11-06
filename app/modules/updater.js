@@ -28,6 +28,7 @@
         //是否经过gzip压缩
         var isGzip = !!res.headers['content-encoding'] && !!~res.headers['content-encoding'].indexOf('gzip');
         var bufferHelper = new BufferHelper();
+        console.log(11)
         res.on('data', function (chunk) {
           bufferHelper.concat(chunk);
         });
