@@ -43,7 +43,8 @@ emoji分割线:
 **一键上传文档**
 ![](http://7ximoo.com1.z0.glb.clouddn.com/q9sxxcp8hydmfzstkch0tqzhhn.png)
 文档里如果包含[SHARE:文件名],则点击工具栏的云朵按钮,会自动上传到七牛空间(需配置空间地址),并在浏览器打开文档.
-
+保存时,会自动上传.md格式文档文件到云空间.
+可以在文件管理界面里管理所有上传的文件.因此你甚至可以完全基于云存储管理文件,无需保存在本地.
 
 **预览窗口可选择内嵌或者新窗口打开**
 ![](http://7ximoo.com1.z0.glb.clouddn.com/invkeldmk6nzs3ta27tleij2zw.png)
