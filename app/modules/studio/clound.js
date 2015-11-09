@@ -4,7 +4,6 @@
   var util = require('./helpers/util'),
       fs = require('fs'),
   		qiniu = require('../app/node_modules/qiniu');
-
   /*
   options = {
   	cloundType:'Qiniu',
@@ -87,30 +86,35 @@
       });
     },
     getFile:function(opt){
-      $.get(opt.path,{clear:new Date()*1},function(txt){
-        opt.onSuccess && opt.onSuccess(txt);
+      $.ajax({
+        url:opt.path,
+        data:{clear:new Date()*1},
+        success:function(txt){
+          opt.onSuccess && opt.onSuccess(txt);
+        },
+        error:function(err){
+          opt.onError && opt.onError(err);
+        }
       });
+      /*$.get(opt.path,{clear:new Date()*1},function(txt){
+        opt.onSuccess && opt.onSuccess(txt);
+      },function(){
+        console.log(1)
+      });*/
     },
     delFile:function(opt){
       qiniu.conf.ACCESS_KEY = opt.accessKey;
     	qiniu.conf.SECRET_KEY = opt.secretKey;
       var client = new qiniu.rs.Client();
-      console.log(opt)
       client.remove(opt.bucketName, opt.path, function(err, ret) {
         if (!err) {
-          console.log(ret)
+          opt.onSuccess && opt.onSuccess(ret);
         } else {
-          console.log(err);
-          // http://developer.qiniu.com/docs/v6/api/reference/codes.html
+          opt.onError && opt.onError({
+            msg:'七牛设置错误'
+          });
         }
-      })
+      });
     }
   };
 })();
-
-
-
-
-
-
-

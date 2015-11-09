@@ -115,6 +115,14 @@
             onSuccess:function(txt){
               this.cm.setValue(txt);
               this.fire('setFiled',filepath);
+            }.bind(this),
+            onError:function(err){
+              if(err.status  == 404){
+                this.fire('error',{msg:'文件不存在'});
+              }
+              else{
+               	this.fire('error',{msg:err.statusText});
+              }
             }.bind(this)
           });
         }
