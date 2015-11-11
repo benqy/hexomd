@@ -35,7 +35,7 @@
     bucketName:'test',
     docBucketName:'markdowndoc',
     //空间访问地址
-    bucketHost:'7xit3a.com1.z0.glb.clouddn.com',
+    bucketHost:'',
     docBucketHost:'',
     //过期时间,从设置之后多少小时过期.
     deadline:1000
@@ -52,7 +52,7 @@
       if(~file.indexOf('.css')){
       	file = file.replace('.css','');
         themes[file] = file;
-      } 
+      }
     });
     return themes;
   };
@@ -68,7 +68,7 @@
     systemSetting.qiniutoken = putPolicy.token();
     return systemSetting;
   };
-  
+
   //读取设置
   system.get = function () {
     return $.extend(defaultSystemData,util.readJsonSync(dataFile));
@@ -79,7 +79,7 @@
     data = data || defaultSystemData;
     util.writeFileSync(dataFile, JSON.stringify(data));
   };
-  
+
     //设置最后打开的文件
   system.setLastFile = function (filepath) {
     var systemData  = system.get();
