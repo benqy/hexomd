@@ -74,7 +74,13 @@
   studio.directive('studioOpendir', function () {
     return function ($scope, elem) {
       $(elem[0]).on('click',function(){
-        hmd.editor.filepath && require('nw.gui').Shell.showItemInFolder(hmd.editor.filepath);
+        var ss = hmd.system.get();
+        if(hmd.editor.filepath){
+        	hmd.editor.filepath && require('nw.gui').Shell.showItemInFolder(hmd.editor.filepath);
+        }
+        else if(~ss.lastFile.indexOf('http')){
+          require('nw.gui').Shell.openItem(ss.lastFile);
+        }
       });
     };
   });

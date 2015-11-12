@@ -320,3 +320,7 @@ td{background-color:#222 !important;}
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
     background-color:#222;
 }
+
+.btn-inline{
+  margin: 0 3px 0 0;
+}

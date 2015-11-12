@@ -11,7 +11,20 @@
       accessKey:ss.accessKey,
       secretKey:ss.secretKey,
       onSuccess:function(data){
-        $scope.files = data.items;
+        var datas = {},previewFiles=[];
+        data.items.forEach(function(item){
+          if(~item.key.indexOf('.md')){
+            datas[item.key.replace('.md')] = item;
+          }
+          else if(~item.key.indexOf('.html')){
+            previewFiles.push(item);
+          }
+        });
+        previewFiles.forEach(function(item){
+          var key = item.key.replace('.html');
+          datas[key] && (datas[key].previewUrl = item.key);
+        });
+        $scope.files = datas;
         $scope.$digest();
       }
     });
@@ -28,6 +41,11 @@
     $scope.openFile = function(file){
       var ss = hmd.system.get();
       require('nw.gui').Shell.openItem('http://' + ss.docBucketHost + '/' + file.key + '?' + Date.now());
+    };
+
+		$scope.preview = function(file){
+      var ss = hmd.system.get();
+      require('nw.gui').Shell.openItem('http://' + ss.docBucketHost + '/' + file.previewUrl + '?' + Date.now());
     };
 
     $scope.delFile = function(file){

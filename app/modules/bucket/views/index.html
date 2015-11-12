@@ -22,9 +22,10 @@
           <td>{{file.fsize/1000}}KB</td>
           <td>{{file.putTime | date }}</td>
           <td>
-            <a ng-show="file.key.indexOf('.md') != -1" href="javascript:;" ng-click="editFile(file)"  title="在编辑器打开"><i class="glyphicon glyphicon-edit"></i></a>
-            <a  href="javascript:;" ng-click="openFile(file)"  title="在浏览器打开"><i class="glyphicon glyphicon-globe"></i></a>
-            <a href="javascript:;" ng-click="delFile(file)"  title="删除"><i class="glyphicon glyphicon-trash"></i></a>
+            <a class="btn-inline" ng-show="file.key.indexOf('.md') != -1" href="javascript:;" ng-click="editFile(file)"  title="在编辑器打开"><i class="glyphicon glyphicon-edit"></i></a>
+            <a class="btn-inline"  href="javascript:;" ng-click="openFile(file)"  title="在浏览器打开"><i class="glyphicon glyphicon-folder-open"></i></a>
+            <a class="btn-inline" href="javascript:;" ng-click="delFile(file)"  title="删除"><i class="glyphicon glyphicon-trash"></i></a>
+            <a ng-show="file.previewUrl!=undefined" class="btn-inline"  href="javascript:;" ng-click="preview(file)"  title="预览"><i class="glyphicon glyphicon-globe"></i></a>
           </td>
         </tr>
     </tbody>
