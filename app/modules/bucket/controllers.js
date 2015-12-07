@@ -34,6 +34,8 @@
 
     $scope.editFile = function(file){
       var ss = hmd.system.get();
+      //防止打开本地文件之后,再从远程打开另一个文件,保存时本地文件被覆盖
+      hmd.editor.filepath = null;
       hmd.system.setLastFile('http://' + ss.docBucketHost + '/' + file.key);
       $state.transitionTo('studio');
     };

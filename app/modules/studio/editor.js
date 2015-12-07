@@ -230,6 +230,7 @@
           shareArgs =  SHARE_REG.exec(this.cm.getValue());
       if(this.filepath || (shareArgs && shareArgs[1])){
         if(this.filepath){
+          hmd.system.setLastFile(this.filepath);
           util.writeFileSync(this.filepath, txt);
           this.fire('saved',this.filepath);
         }

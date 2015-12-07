@@ -1,9 +1,15 @@
 (function () {
   var studio = hmd.studio,
-      fs = require('fs');
+      fs = require('fs'),
+      argsFirstRead = true;
   studio.directive('hmdEditor', function () {
     return function ($scope, elem) {
-      var systemData = hmd.system.get();
+      var systemData = hmd.system.get(),
+      	gui = require('nw.gui'),
+        filepath = gui.App.argv[0];
+      if(argsFirstRead && filepath){
+        hmd.system.setLastFile(filepath);
+      }
       hmd.editor.init({
         el:elem[0],
         theme:systemData.theme
@@ -34,9 +40,10 @@
         }
       };
       //双击md文件打开
-      var gui = require('nw.gui'),
-          filepath = gui.App.argv[0];
-			filepath && ~filepath.indexOf('.md') && hmd.editor.setFile(filepath);
+      if(argsFirstRead && filepath){
+        argsFirstRead = false;
+        ~filepath.indexOf('.md') && hmd.editor.setFile(filepath);
+      }
       //如果程序已经打开,则会触发open事件
       gui.App.on('open', function(cmdline) {
         window.focus();
@@ -57,6 +64,7 @@
   studio.directive('studioNewfile', function () {
     return function ($scope, elem) {
       $(elem[0]).on('click',function(){
+        hmd.system.setLastFile();
         hmd.editor.setFile();
       });
     };
