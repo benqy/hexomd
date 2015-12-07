@@ -44,8 +44,50 @@
       this.cm.addKeyMap({
         "Ctrl-S": function () {
           me.save();
-        }
+        },
+        //加粗
+        "Ctrl-B": me.bold.bind(this),
+        //突出关键词显示
+        "Ctrl-M": me.mark.bind(this),
+        "Ctrl-W": me.code.bind(this),
+        //表格模版
+        "Ctrl-T": me.table.bind(this),
+        "Ctrl-I": me.image.bind(this),
+        "Ctrl-L": me.link.bind(this),
       });
+    },
+    wrapSelection:function(reg,signLeft,signRight){
+      var selection = this.cm.doc.getSelection(),
+          resultTxt;
+      signRight = signRight || signLeft;
+      if(reg.test(selection)){
+        resultTxt = selection.replace(reg,function($1,$2){return $2;});
+      }
+      else{
+        resultTxt = signLeft + selection + signRight;
+      }
+      this.cm.doc.replaceSelection(resultTxt,'around');
+    },
+    image:function(){
+      this.cm.doc.replaceSelection('![]()');
+    },
+    link:function(){
+      this.cm.doc.replaceSelection('[]()');
+    },
+    table:function(){
+    	var tableTemplate = `| aaa | bbbb | cccc |
+|---:| :-- |:---:|
+| 1 | 2 | 3 |`;
+      this.cm.doc.replaceSelection(tableTemplate,'star');
+    },
+    code:function(){
+      this.wrapSelection(/```([\s\S]*)```/,'```\r\n','\r\n```');
+    },
+    mark:function(){
+      this.wrapSelection(/`(.*)`/,'`');
+    },
+    bold:function(a){
+      this.wrapSelection(/\*\*(.*)\*\*/,'**');
     },
     setTheme:function(theme){
       $('#editorThemeStyleSheet').remove();

@@ -31,6 +31,20 @@ HexoMD
 [开发系列博客](http://benq.im/2015/04/21/hexomd-01/)
 [使用教程](http://benq.im/2015/10/29/hexomd-introduction/)
 
+### 快捷键
+`Ctrl-B`:  加粗/取消加粗
+
+`Ctrl-M`:  标志位关键词(前后加上``)
+
+`Ctrl-W`:  标志为代码段(前后加上```)
+
+`Ctrl-T`:  输出一个表格模版
+
+`Ctrl-I`:  输出一个图片模版
+
+`Ctrl-L`:  输出一个链接模版
+
+
 ### 示例
 
 emoji分割线:
