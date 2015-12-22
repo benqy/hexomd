@@ -6,7 +6,7 @@ HexoMD
 ###下载
 这是打包好的链接,有自动更新功能,以后只要更新就行
 [绿色版win64 v1.0.0.0](http://pan.baidu.com/s/1eQEw1Wm)
-[绿色版win32 v1.2.0.0](http://pan.baidu.com/s/1mhp6pPu)
+[绿色版win32 v1.2.0.0](http://pan.baidu.com/s/1nubrefn)
 
 ### 目前功能: 
 
