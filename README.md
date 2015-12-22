@@ -5,7 +5,8 @@ HexoMD
 
 ###下载
 这是打包好的链接,有自动更新功能,以后只要更新就行
-[打包好的程序v1.0.0.0](http://pan.baidu.com/s/1eQEw1Wm)
+[绿色版win64 v1.0.0.0](http://pan.baidu.com/s/1eQEw1Wm)
+[绿色版win32 v1.2.0.0](http://pan.baidu.com/s/1mhp6pPu)
 
 ### 目前功能: 
 
@@ -18,7 +19,7 @@ HexoMD
 7.  导出html,pdf文件.
 8.  目录语法
 9.  一键文档分享
-
+ 
 ### 源代码如何运行
 
 下载 [NW.js](http://nwjs.io/)(目前我只在win64测试过)
@@ -34,7 +35,7 @@ HexoMD
 ### 快捷键
 `Ctrl-B`:  加粗/取消加粗
 
-`Ctrl-M`:  标志位关键词(前后加上``)
+`Ctrl-M`:  标志为行内代码,关键词(前后加上``)
 
 `Ctrl-W`:  标志为代码段(前后加上```)
 
