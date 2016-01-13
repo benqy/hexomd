@@ -89,11 +89,17 @@
     bold:function(a){
       this.wrapSelection(/\*\*(.*)\*\*/,'**');
     },
+    reset:function(){
+      setTimeout(function(){
+      	hmd.editor.cm.setValue(hmd.editor.cm.getValue());
+      },1000);
+    },
     setTheme:function(theme){
       $('#editorThemeStyleSheet').remove();
       var styleSheet = $('<link id="editorThemeStyleSheet" href="lib/codemirror/theme/'+theme+'.css" rel="stylesheet" />');
       $('head').append(styleSheet);
       this.cm.setOption('theme',theme);
+      this.reset();
     },
     initMarked:function(){
       var marked = this.marked = require('../app/node_modules/marked');
@@ -174,6 +180,7 @@
           this.filepath = filepath;
           this.cm.setValue(txt);
           this.fire('setFiled',this.filepath);
+          this.reset();
         }
       }
       else{

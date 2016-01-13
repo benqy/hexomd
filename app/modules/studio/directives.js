@@ -15,7 +15,7 @@
         theme:systemData.theme
       },systemData.lastFile);
       //保存最后一次打开的文件
-      hmd.editor.on('setFiled',function(filepath){
+      hmd.editor.on('setFiled',function(filepath){hmd.editor.reset();
         hmd.system.setLastFile(filepath);
       });
 
@@ -99,7 +99,7 @@
       //修改文本时更新预览,change事件触发非常频繁,所以这里使用setTimeout防止频繁解析.
       var changeTimer;
       var ss = hmd.system.get();
-      var gui = require('nw.gui'), win = gui.Window.get()
+      var gui = require('nw.gui'), win = gui.Window.get();
       hmd.iframePreWin = null;
       hmd.editor.on('change',function(){
         clearTimeout(changeTimer);
@@ -125,7 +125,8 @@
       });
 
       $(elem[0]).on('click',function(){
-        var previewWinUrl = ('file:///' + require('path').dirname(process.execPath) + '/app/modules/studio/views/preview.html').replace(/\\/g,'/');
+        var previewWinUrl = ('file:///' + require('path').dirname(process.execPath) +
+                             '/app/modules/studio/views/preview.html').replace(/\\/g,'/');
         if(ss.preViewWindow == 'in'){
           if(!hmd.iframePreWin){
             hmd.iframePreWin = gui.Window.get(document.getElementById('preViewWindow').contentWindow);
@@ -142,6 +143,7 @@
           	$('.CodeMirror').removeClass('half-width');
             $('.preview-in').addClass('hide');
           }
+          hmd.editor.reset();
         }
         else{
           if (!hmd.previewWin) {

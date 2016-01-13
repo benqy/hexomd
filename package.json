@@ -7,12 +7,12 @@
   "directories": {
     "test": "no"
   },
-  "version": "1.2.0.0",
+  "version": "1.2.0.3",
   "devDependencies": {},
   "window": {
     "title": "HexoMD",
     "icon": "app/img/logo.png",
-    "toolbar": false,
+    "toolbar": true,
     "frame": false,
     "width": 1100,
     "height": 700,

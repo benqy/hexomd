@@ -127,6 +127,7 @@ body {
     width: 100%;
     height: calc(100% - 40px);
     display: -webkit-box;
+  	overflow:auto;
     -webkit-box-orient: horizontal;
 }
 
