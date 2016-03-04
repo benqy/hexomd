@@ -106,7 +106,7 @@
         changeTimer = setTimeout(function(){
         	hmd.previewWin && hmd.previewWin.emit('change', hmd.editor.parse());
           hmd.iframePreWin && hmd.iframePreWin.emit('change', hmd.editor.parse());
-        },200);
+        },500);
       });
       //打开文件时更新预览
       hmd.editor.on('setFiled',function(filepath){
