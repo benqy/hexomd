@@ -1,8 +1,11 @@
 var gui = require('nw.gui'), win = gui.Window.get();
 var baseDir = require('path').dirname(process.execPath);
 
-win.on('change', function (mdHtml) {
-  $('#content').html(mdHtml);
+win.on('change', function (html) {
+  $('#content').html(html);
+  var match = html.match(/<h1>.*<\/h1>/);
+  var h1 = match ? match[0]:'预览';
+  $('title').text($(h1).text());
 });
 
 win.on('editorScroll',function(scrollInfo){

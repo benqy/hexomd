@@ -120,7 +120,14 @@
       });
     },
     parse:function(){
-      return this.marked(this.cm.getValue().replace(SHARE_REG,''));
+      var html = this.marked(this.cm.getValue().replace(SHARE_REG,''));
+      return html;
+    },
+    getTitle:function(html){
+      html = html || this.parse();
+      var match = html.match(/<h1>.*<\/h1>/),
+      title = match ? $(match[0]).text():'预览';
+      return title;
     },
     //上传文档到云端
     share:function(fn){
@@ -230,13 +237,14 @@
       this.openFileInput.trigger('click');
     },
     generalHtmlStr:function(){
-      var ssData = hmd.system.get();
+      var ssData = hmd.system.get(), html =this.parse() ;
       //读取样式文件,内嵌到导出的html页面
       styleText = '<style type="text/css">'+ util.readFileSync('app/css/previewtheme/' + ssData.preViewTheme + '.css') +'</style>';
       styleText += '<style type="text/css">'+ util.readFileSync('app/node_modules/highlight.js/styles/' + ssData.preViewHighLightTheme + '.css') +'</style>';
       template = util.readFileSync('app/modules/studio/views/export.html');
+      template = template.replace('<!--titleMarked-->',this.getTitle(html))
       template = template.replace('<!--cssMarked-->',styleText);
-      template = template.replace('<!--content-->',this.parse());
+      template = template.replace('<!--content-->',html);
       return template;
     },
     export:function(){
