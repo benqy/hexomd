@@ -105,7 +105,7 @@
       //移动配置文件
       require("child_process").exec('xcopy "' + updatePath + '\\package.json" "' + execPath + '\\package.json" /s /e /y');
       //解压缩补丁文件
-      var unzip = execPath + '\\7z.exe x '+ updatePath +'\\update.zip -y';
+      var unzip = execPath + '\\7z.exe x '+ updatePath +'\\update.zip -o'+ execPath+' -y';
       require("child_process").exec(unzip,function(){
       hmd.msg('===更新完成,重启后生效===');
       });
