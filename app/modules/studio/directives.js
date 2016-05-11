@@ -104,9 +104,10 @@
       hmd.editor.on('change',function(){
         clearTimeout(changeTimer);
         changeTimer = setTimeout(function(){
+          console.log('change');
         	hmd.previewWin && hmd.previewWin.emit('change', hmd.editor.parse());
           hmd.iframePreWin && hmd.iframePreWin.emit('change', hmd.editor.parse());
-        },500);
+        },300);
       });
       //打开文件时更新预览
       hmd.editor.on('setFiled',function(filepath){

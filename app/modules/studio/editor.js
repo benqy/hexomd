@@ -120,7 +120,10 @@
       });
     },
     parse:function(){
-      var html = this.marked(this.cm.getValue().replace(SHARE_REG,''));
+      var val = this.cm.getValue().replace(SHARE_REG,'');
+      var time = new Date()*1;
+      var html = this.marked(val);
+      console.log(new Date()*1 - time);
       return html;
     },
     getTitle:function(html){
