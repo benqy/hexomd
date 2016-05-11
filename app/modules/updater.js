@@ -28,7 +28,6 @@
         //是否经过gzip压缩
         var isGzip = !!res.headers['content-encoding'] && !!~res.headers['content-encoding'].indexOf('gzip');
         var bufferHelper = new BufferHelper();
-        console.log(11)
         res.on('data', function (chunk) {
           bufferHelper.concat(chunk);
         });
@@ -102,6 +101,8 @@
     },
     //安装补丁包
     install: function () {
+      fs.rmdirSync(updatePath);
+      fs.mkdirSync(updatePath);
       //移动配置文件
       require("child_process").exec('xcopy "' + updatePath + '\\package.json" "' + execPath + '\\package.json" /s /e /y');
       //解压缩补丁文件
