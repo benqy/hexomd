@@ -145,6 +145,8 @@ body {
 .app .preview-in{
   width:50%;
   height:100%;
+z-index: 500;
+  position: relative;
   overflow:hidden;
 }
 .app .preview-in iframe{
@@ -232,8 +234,10 @@ body {
     overflow: auto;
     border-radius: 0;
     display:none;
+    position: relative;
 }
 .CodeMirror {
+	z-index: 300;
   height:100%;
  	width:100%;
   padding:8px;
