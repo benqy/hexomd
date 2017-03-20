@@ -287,7 +287,7 @@ div.CodeMirror-cursors {
 
 .cm-searching {
   background: #ffa;
-  background: rgba(255, 255, 0, .4);
+  background: #000;
 }
 
 /* IE7 hack to prevent it from returning funny offsetTops on the spans */
