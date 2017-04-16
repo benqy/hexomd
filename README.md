@@ -3,7 +3,7 @@ HexoMD
 
 给自己用的markdown编辑器
 
-###下载
+### 下载
 这是打包好的链接,有自动更新功能,下载后请先更新到最新版  
 [绿色版win64 v1.0.0.0](http://pan.baidu.com/s/1eQEw1Wm)  
 [绿色版win32 v1.2.0.0](http://pan.baidu.com/s/1nubrefn)
